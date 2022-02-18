@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<!-- 데이터베이스 접속은 datasource-context에서 관리하므로 이하 삭제 -->
+	<!-- <bean -->
+	<!-- class="org.springframework.jdbc.datasource.DriverManagerDataSource" -->
+	<!-- id="dataSource"> -->
+	<!-- <property value="oracle.jdbc.driver.OracleDriver" -->
+	<!-- name="driverClassName" /> -->
+	<!-- <property value="jdbc:oracle:thin:@localhost:1521:orcl" -->
+	<!-- name="url" /> -->
+	<!-- 오라클 사용자 이름 -->
+	<!-- <property value="SYSTEM" name="username" /> -->
+	<!-- 오라클 사용자 비밀번호 -->
+	<!-- <property value="Ona864521**" name="password" /> -->
+	<!-- </bean> -->
+
+	<!-- <bean class="org.mybatis.spring.SqlSessionFactoryBean" -->
+	<!-- id="SqlSessionFactory"> -->
+	<!-- <property name="dataSource" ref="dataSource" /> -->
+	<!-- <property value="classpath:/mybatis-config.xml" -->
+	<!-- name="configLocation" /> -->
+	<!-- <property value="classpath:/*Mapper.xml" -->
+	<!-- name="mapperLocations" /> -->
+	<!-- </bean> -->
+
+	<!-- <mybatis-spring:scan -->
+	<!-- base-package="com.player0.mapper"></mybatis-spring:scan> -->
+
+	<!-- HikariCP 라이브러리를 이용하여 커넥션 풀 생성 -->
+	<!-- <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig"> -->
+	<!-- <property name="jdbcUrl" -->
+	<!-- value="jdbc:log4jdbc:oracle:thin:@localhost:1521:orcl" /> -->
+	<!-- <property name="driverClassName" -->
+	<!-- value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" /> -->
+	<!-- <property name="username" value="SYSTEM" /> -->
+	<!-- <property name="password" value="Ona864521**" /> -->
+	<!-- </bean> -->
+
+	<!-- <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" -->
+	<!-- destroy-method="close"> -->
+	<!-- <constructor-arg ref="hikariConfig" /> -->
+	<!-- </bean> -->
+
+	<!-- mybatis에서 가장 핵심 객체는 SQLSession과 SQLSessionFactory -->
+	<!-- <bean id="SqlSessionFactory" -->
+	<!-- class="org.mybatis.spring.SqlSessionFactoryBean"> -->
+	<!-- <property name="dataSource" ref="dataSource" /> -->
+	<!-- </bean> -->
+
+	<!-- <context:component-scan -->
+	<!-- base-package="com.my.spring" /> -->
+
+	<!-- DB연동 인터페이스(BoardDAO.java)와 Mapper.xml(BoardMapper.xml)같이 파일명이 다른 경우지정 -->
+	<!-- <mybatis-spring:scan -->
+	<!-- base-package="com.my.spring.mapper" /> -->
+	<!--설정의 지정된 패키지의 모든 어노테이션을 찾아 설정하는 것을 의미한다. -->
+	<!-- <context:component-scan -->
+	<!-- base-package="com.my.spring"></context:component-scan> -->
+
+</beans>

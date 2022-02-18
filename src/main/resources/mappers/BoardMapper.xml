@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.player0.app.board.mappers.BoardMapper">
+	<insert id="insert">
+		INSERT
+		INTO general_board(
+		brd_no
+		, category_cd
+		, title
+		,
+		content
+		, tag
+		, view_cnt
+		, user_id
+		, reg_date
+		, edit_date
+		)
+		VALUES (
+		# {
+		brd_no }
+		, # { category_cd }
+		, # { title }
+		, # { content }
+		, # { tag }
+		, #
+		{ view_cnt }
+		, # { user_id }
+		, # { reg_date }
+		, # { edit_date }
+		)
+	</insert>
+
+	<select id="select" resultMap="BoardResultMap">
+		SELECT
+		brd_no
+		, category_cd
+		, title
+		,
+		content
+		, tag
+		, view_cnt
+		, user_id
+		, reg_date
+		, edit_date
+		FROM
+		general_board
+		WHERE
+		brd_no = # { brd_no }
+	</select>
+
+	<update id="update">
+		UPDATE general_board
+		SET
+		title = # { title }
+		, content =
+		# { content }
+		, edit_date = # { edit_date }
+		WHERE
+		brd_no = # { brd_no }
+	</update>
+
+	<delete id="delete">
+		DELETE
+		FROM
+		general_board
+		WHERE
+		brd_no = # { brd_no }
+	</delete>
+
+	<select id="listAll" resultType="BoardVo">
+		<![CDATA[
+		SELECT
+		brd_no
+		, category_cd
+		, title
+		, content
+		, tag
+		, view_cnt
+		, user_id
+		, reg_date
+		, edit_date
+		FROM
+		general_board
+		WHERE
+		brd_no > 0
+		ORDER BY
+		brd_no DESC
+		, regdate DESC
+		]]>
+	</select>
+
+	<!-- Java와DB변수명을 맞춰주기 위해 resultMap을 사용 -->
+	<resultMap id="BoardResultMap" type="BoardVo">
+		<id property="brd_no" column="brd_no" />
+		<result property="category_cd" column="category_cd" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="tag" column="tag" />
+		<result property="view_cnt" column="view_cnt" />
+		<result property="user_id" column="user_id" />
+		<result property="reg_date" column="reg_date" />
+		<result property="edit_date" column="edit_date" />
+	</resultMap>
+
+</mapper>

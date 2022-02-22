@@ -19,20 +19,20 @@ public class BoardDaoImpl implements BoardDao {
 		this.sqlSession = sqlSession;
 	}
 
-	public void insert(BoardVo BoardVO) throws Exception {
-		sqlSession.insert(NAMESPACE + ".insert", BoardVO);
+	public void write(BoardVo boardVo) throws Exception {
+		sqlSession.insert(NAMESPACE + ".write", boardVo);
 	}
 
-	public BoardVo select(Integer Board_no) throws Exception {
-		return sqlSession.selectOne(NAMESPACE + ".select", Board_no);
+	public BoardVo select(Integer brdNo) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + ".select", brdNo);
 	}
 
-	public void update(BoardVo BoardVO) throws Exception {
-		sqlSession.update(NAMESPACE + ".update", BoardVO);
+	public void update(BoardVo boardVo) throws Exception {
+		sqlSession.update(NAMESPACE + ".update", boardVo);
 	}
 
-	public void delete(Integer Board_no) throws Exception {
-		sqlSession.delete(NAMESPACE + ".delete", Board_no);
+	public void delete(Integer brdNo) throws Exception {
+		sqlSession.delete(NAMESPACE + ".delete", brdNo);
 	}
 
 	public List<BoardVo> listAll() throws Exception {

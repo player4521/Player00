@@ -15,8 +15,7 @@
 		, user_id
 		, reg_date
 		, edit_date
-		)
-		VALUES (
+		) VALUES (
 		# { brdNo }
 		, # { categoryCd }
 		, # { title }
@@ -24,8 +23,8 @@
 		, # { tag }
 		, # { viewCnt }
 		, # { userId }
-		, # { regDate }
-		, # { editDate }
+		, now()
+		, now()
 		)
 	</insert>
 

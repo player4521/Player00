@@ -1,8 +1,8 @@
-package com.player0.app.board.service;
+package com.player0.app.service;
 
 import java.util.List;
 
-import com.player0.app.board.model.BoardVo;
+import com.player0.app.model.BoardVo;
 
 public interface BoardService {
 	void write(BoardVo boardVo) throws Exception;

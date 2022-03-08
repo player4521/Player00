@@ -1,4 +1,4 @@
-package com.player0.app.board.controller;
+package com.player0.app.controller;
 
 import javax.inject.Inject;
 
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.player0.app.board.model.BoardVo;
-import com.player0.app.board.service.BoardService;
+import com.player0.app.model.BoardVo;
+import com.player0.app.service.BoardService;
 
 @Controller
-@RequestMapping("/board")
+@RequestMapping("/board/*")
 public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	private final BoardService boardService;
@@ -26,49 +26,48 @@ public class BoardController {
 	}
 
 	// 등록 페이지 이동
-	@RequestMapping(value = "/write", method = RequestMethod.GET)
+	@RequestMapping(value = "write", method = RequestMethod.GET)
 	public String writeGET() {
 		logger.info("write GET...");
-		return "/board/write";
+		return "board/write";
 	}
 
 	// 등록 처리
-	@RequestMapping(value = "/write", method = RequestMethod.POST)
+	@RequestMapping(value = "write", method = RequestMethod.POST)
 	public String writePOST(BoardVo boardVo, RedirectAttributes redirectAttributes) throws Exception {
 		logger.info("write POST...");
 		logger.info(boardVo.toString());
 		boardService.write(boardVo);
-		;
 		redirectAttributes.addFlashAttribute("msg", "regSuccess");
 		return "redirect:/board/list";
 	}
 
 	// 목록 페이지 이동
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public String list(Model model) throws Exception {
 		logger.info("list ...");
-		model.addAttribute("boards", boardService.listAll());
-		return "/board/list";
+		model.addAttribute("board", boardService.listAll());
+		return "board/list";
 	}
 
 	// 조회 페이지 이동
-	@RequestMapping(value = "/read", method = RequestMethod.GET)
+	@RequestMapping(value = "read", method = RequestMethod.GET)
 	public String read(@RequestParam("brdNo") int brdNo, Model model) throws Exception {
 		logger.info("read ...");
 		model.addAttribute("board", boardService.select(brdNo));
-		return "/board/read";
+		return "board/read";
 	}
 
 	// 수정 페이지 이동
-	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	@RequestMapping(value = "modify", method = RequestMethod.GET)
 	public String modifyGET(@RequestParam("brdNo") int brdNo, Model model) throws Exception {
 		logger.info("modifyGet ...");
 		model.addAttribute("board", boardService.select(brdNo));
-		return "/board/modify";
+		return "board/modify";
 	}
 
 	// 수정 처리
-	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	@RequestMapping(value = "modify", method = RequestMethod.POST)
 	public String modifyPOST(BoardVo boardVo, RedirectAttributes redirectAttributes) throws Exception {
 		logger.info("modifyPOST ...");
 		boardService.update(boardVo);
@@ -77,7 +76,7 @@ public class BoardController {
 	}
 
 	// 삭제 처리
-	@RequestMapping(value = "/remove", method = RequestMethod.POST)
+	@RequestMapping(value = "remove", method = RequestMethod.POST)
 	public String remove(@RequestParam("brdNo") int brdNo, RedirectAttributes redirectAttributes) throws Exception {
 		logger.info("remove ...");
 		boardService.delete(brdNo);

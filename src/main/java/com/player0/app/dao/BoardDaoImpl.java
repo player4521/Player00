@@ -1,4 +1,4 @@
-package com.player0.app.board.dao;
+package com.player0.app.dao;
 
 import java.util.List;
 
@@ -7,11 +7,11 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.player0.app.board.model.BoardVo;
+import com.player0.app.model.BoardVo;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
-	private static final String NAMESPACE = "com.player0.app.board.mappers.BoardMapper";
+	private static final String NAMESPACE = "com.player0.app.mappers.BoardMapper";
 	private final SqlSession sqlSession;
 
 	@Inject

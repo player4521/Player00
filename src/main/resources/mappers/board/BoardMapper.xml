@@ -2,12 +2,11 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.player0.app.mappers.board.BoardMapper">
+<mapper namespace="com.player0.app.mappers.BoardMapper">
 	<insert id="write">
 		INSERT
 		INTO general_board(
-		brd_no
-		, category_cd
+		category_cd
 		, title
 		, content
 		, tag
@@ -16,15 +15,16 @@
 		, reg_date
 		, edit_date
 		) VALUES (
-		# { brdNo }
-		, # { categoryCd }
-		, # { title }
-		, # { content }
-		, # { tag }
-		, # { viewCnt }
-		, # { userId }
-		, now()
-		, now()
+		'test'<!-- 임시 category_cd -->
+		<!-- #{categoryCd} -->
+		, #{title}
+		, #{content}
+		, #{tag}
+		, #{viewCnt}
+		<!-- , #{userId} -->
+		, 'test'<!-- 임시 userId -->
+		, SYSDATE
+		, SYSDATE
 		)
 	</insert>
 
@@ -42,17 +42,17 @@
 		FROM
 		general_board
 		WHERE
-		brd_no = # { brdNo }
+		brd_no = #{brdNo}
 	</select>
 
 	<update id="update">
 		UPDATE general_board
 		SET
-		title = # { title }
-		, content = # { content }
-		, edit_date = # { editDate }
+		title = #{title}
+		, content = #{content}
+		, edit_date = SYSDATE
 		WHERE
-		brd_no = # { brdNo }
+		brd_no = #{brdNo}
 	</update>
 
 	<delete id="delete">
@@ -60,13 +60,13 @@
 		FROM
 		general_board
 		WHERE
-		brd_no = # { brdNo }
+		brd_no = #{brdNo}
 	</delete>
 
-	<select id="listAll" resultType="com.player0.app.board.model.BoardVo">
+	<select id="listAll" resultType="com.player0.app.model.BoardVo">
 		<![CDATA[
   		SELECT
-  		brd_no
+  		brd_no as brdNo
   		, category_cd
   		, title
   		, content
@@ -81,12 +81,12 @@
   		brd_no > 0
   		ORDER BY
   		brd_no DESC
-  		, regdate DESC
+  		, reg_date DESC
   		]]>
 	</select>
 
 	<!-- Java와DB변수명이 다른 경우 resultType 이 아닌 resultMap을 사용 -->
-	<resultMap id="BoardResultMap" type="com.player0.app.board.model.BoardVo">
+	<resultMap id="BoardResultMap" type="com.player0.app.model.BoardVo">
 		<id property="brdNo" column="brd_no" />
 		<result property="categoryCd" column="category_cd" />
 		<result property="title" column="title" />

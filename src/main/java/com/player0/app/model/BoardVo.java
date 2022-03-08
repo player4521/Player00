@@ -1,4 +1,4 @@
-package com.player0.app.board.model;
+package com.player0.app.model;
 
 import java.sql.Date;
 

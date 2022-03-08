@@ -58,8 +58,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								rows="30" placeholder="Insert Content" style="resize: none;"></textarea>
 						</div>
 						<div class="form-group">
-							<label for="writer">User</label> <input class="form-control"
-								id="writer" name="writer">
+							<label for="tag">tag</label> <input class="form-control"
+								id="tag" name="tag">
 						</div>
 					</div>
 					<div class="card-footer">

@@ -1,8 +1,8 @@
-package com.player0.app.board.dao;
+package com.player0.app.dao;
 
 import java.util.List;
 
-import com.player0.app.board.model.BoardVo;
+import com.player0.app.model.BoardVo;
 
 public interface BoardDao {
 	void write(BoardVo boardVo) throws Exception;

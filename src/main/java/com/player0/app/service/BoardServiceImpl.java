@@ -1,4 +1,4 @@
-package com.player0.app.board.service;
+package com.player0.app.service;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import javax.inject.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.player0.app.board.dao.BoardDao;
-import com.player0.app.board.model.BoardVo;
+import com.player0.app.dao.BoardDao;
+import com.player0.app.model.BoardVo;
 
 @Service
 public class BoardServiceImpl implements BoardService {

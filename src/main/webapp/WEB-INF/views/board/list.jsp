@@ -20,46 +20,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<!-- Content Header (Page header) -->
 			<div class="content-header">
 				<div class="container-fluid">
-					<div class="col-lg-12">
-						<div class="card">
-							<div class="card-header">
-								<h3 class="card-title">Article List</h3>
-							</div>
-							<div class="card-body">
-								<table class="table table-bordered">
-									<tbody>
-										<tr>
-											<th style="width: 30px">#</th>
-											<th>title</th>
-											<th style="width: 100px">name</th>
-											<th style="width: 150px">date</th>
-											<th style="width: 60px">views</th>
-										</tr>
-										<c:forEach items="${articles}" var="board">
-											<tr>
-												<td>${board.brdNo}</td>
-												<td><a
-													href="${path}/board/select?brdNo=${board.brdNo}">${board.title}</a></td>
-												<td>${board.write}</td>
-												<td><fmt:formatDate value="${board.regDate}"
-														pattern="yyyy-MM-dd a HH:mm" /></td>
-												<td><span class="badge bg-red">${board.viewCnt}</span></td>
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-							</div>
-							<div class="card-footer">
-								<div class="float-right">
-									<button type="button" class="btn btn-success btn-flat"
-										id="writeBtn">
-										<i class="fa fa-pencil"></i> write
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-
 					<div class="row mb-2">
 						<div class="col-sm-6">
 							<h1 class="m-0">Starter Page</h1>
@@ -82,31 +42,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<!-- Main content -->
 			<div class="content">
 				<div class="container-fluid">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="card">
-								<div class="card-body">
-									<h5 class="card-title">Card title</h5>
-
-									<p class="card-text">Some quick example text to build on
-										the card title and make up the bulk of the card's content.</p>
-
-									<a href="#" class="card-link">Card link</a> <a href="#"
-										class="card-link">Another link</a>
+					<div class="col-lg-12">
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">Article List</h3>
+							</div>
+							<div class="card-body">
+								<table class="table table-bordered">
+									<tbody>
+										<tr>
+											<th style="width: 30px">#</th>
+											<th>title</th>
+											<th style="width: 100px">name</th>
+											<th style="width: 150px">date</th>
+											<th style="width: 60px">views</th>
+										</tr>
+										<c:forEach items="${board}" var="board">
+											<tr>
+												<td>${board.brdNo}</td>
+												<td><a href="${path}/board/select?brdNo=${board.brdNo}">${board.title}</a></td>
+												<td>${board.userId}</td>
+												<td><fmt:formatDate value="${board.regDate}"
+														pattern="yyyy-MM-dd a HH:mm" /></td>
+												<td><span class="badge bg-red">${board.viewCnt}</span></td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+							<div class="card-footer">
+								<div class="float-right">
+									<button type="button" class="btn btn-success btn-flat"
+										id="writeBtn">
+										<i class="fa fa-pencil"></i> write
+									</button>
 								</div>
 							</div>
-
-							<div class="card card-primary card-outline">
-								<div class="card-body">
-									<h5 class="card-title">Card title</h5>
-
-									<p class="card-text">Some quick example text to build on
-										the card title and make up the bulk of the card's content.</p>
-									<a href="#" class="card-link">Card link</a> <a href="#"
-										class="card-link">Another link</a>
-								</div>
-							</div>
-							<!-- /.card -->
 						</div>
 					</div>
 					<!-- /.row -->

@@ -23,7 +23,7 @@ public class BoardDaoImpl implements BoardDao {
 		sqlSession.insert(NAMESPACE + ".write", boardVo);
 	}
 
-	public BoardVo select(Integer brdNo) throws Exception {
+	public BoardVo read(Integer brdNo) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + ".select", brdNo);
 	}
 

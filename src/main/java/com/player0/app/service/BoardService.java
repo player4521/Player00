@@ -7,7 +7,7 @@ import com.player0.app.model.BoardVo;
 public interface BoardService {
 	void write(BoardVo boardVo) throws Exception;
 
-	BoardVo select(Integer brdNo) throws Exception;
+	BoardVo read(Integer brdNo) throws Exception;
 
 	void update(BoardVo boardVo) throws Exception;
 

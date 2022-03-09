@@ -52,17 +52,18 @@ public class BoardController {
 
 	// 조회 페이지 이동
 	@RequestMapping(value = "read", method = RequestMethod.GET)
-	public String read(@RequestParam("brdNo") int brdNo, Model model) throws Exception {
+	public String read(@RequestParam("brd_no") int brdNo, Model model) throws Exception {
+		System.out.println(brdNo);
 		logger.info("read ...");
-		model.addAttribute("board", boardService.select(brdNo));
+		model.addAttribute("board", boardService.read(brdNo));
 		return "board/read";
 	}
 
 	// 수정 페이지 이동
 	@RequestMapping(value = "modify", method = RequestMethod.GET)
-	public String modifyGET(@RequestParam("brdNo") int brdNo, Model model) throws Exception {
+	public String modifyGET(@RequestParam("brd_no") int brdNo, Model model) throws Exception {
 		logger.info("modifyGet ...");
-		model.addAttribute("board", boardService.select(brdNo));
+		model.addAttribute("board", boardService.read(brdNo));
 		return "board/modify";
 	}
 
@@ -77,7 +78,7 @@ public class BoardController {
 
 	// 삭제 처리
 	@RequestMapping(value = "remove", method = RequestMethod.POST)
-	public String remove(@RequestParam("brdNo") int brdNo, RedirectAttributes redirectAttributes) throws Exception {
+	public String remove(@RequestParam("brd_no") int brdNo, RedirectAttributes redirectAttributes) throws Exception {
 		logger.info("remove ...");
 		boardService.delete(brdNo);
 		redirectAttributes.addFlashAttribute("msg", "delSuccess");

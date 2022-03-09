@@ -27,8 +27,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public BoardVo select(Integer brdNo) throws Exception {
-		return boardDao.select(brdNo);
+	public BoardVo read(Integer brdNo) throws Exception {
+		return boardDao.read(brdNo);
 	}
 
 	@Override

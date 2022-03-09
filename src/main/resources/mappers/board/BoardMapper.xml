@@ -20,7 +20,7 @@
 		, #{title}
 		, #{content}
 		, #{tag}
-		, #{viewCnt}
+		, #{view_cnt}
 		<!-- , #{userId} -->
 		, 'test'<!-- 임시 userId -->
 		, SYSDATE
@@ -42,7 +42,7 @@
 		FROM
 		general_board
 		WHERE
-		brd_no = #{brdNo}
+		brd_no = #{brd_no}
 	</select>
 
 	<update id="update">
@@ -60,13 +60,13 @@
 		FROM
 		general_board
 		WHERE
-		brd_no = #{brdNo}
+		brd_no = #{brd_no}
 	</delete>
 
 	<select id="listAll" resultType="com.player0.app.model.BoardVo">
 		<![CDATA[
   		SELECT
-  		brd_no as brdNo
+  		brd_no
   		, category_cd
   		, title
   		, content
@@ -87,15 +87,15 @@
 
 	<!-- Java와DB변수명이 다른 경우 resultType 이 아닌 resultMap을 사용 -->
 	<resultMap id="BoardResultMap" type="com.player0.app.model.BoardVo">
-		<id property="brdNo" column="brd_no" />
-		<result property="categoryCd" column="category_cd" />
+		<id property="brd_no" column="brd_no" />
+		<result property="category_cd" column="category_cd" />
 		<result property="title" column="title" />
 		<result property="content" column="content" />
 		<result property="tag" column="tag" />
-		<result property="viewCnt" column="view_cnt" />
-		<result property="userId" column="user_id" />
-		<result property="regDate" column="reg_date" />
-		<result property="editDate" column="edit_date" />
+		<result property="view_cnt" column="view_cnt" />
+		<result property="user_id" column="user_id" />
+		<result property="reg_date" column="reg_date" />
+		<result property="edit_date" column="edit_date" />
 	</resultMap>
 
 </mapper>

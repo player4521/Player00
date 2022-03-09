@@ -3,110 +3,93 @@ package com.player0.app.model;
 import java.sql.Date;
 
 public class BoardVo {
-	private Integer brdNo;
-	private String categoryCd;
+	private Integer brd_no;
+	private String category_cd;
 	private String title;
 	private String content;
 	private String tag;
-	private int viewCnt;
-	private String userId;
-	private Date regDate;
-	private Date editDate;
+	private int view_cnt;
+	private String user_id;
+	private Date reg_date;
+	private Date edit_date;
 
-	public Integer getBrdNo() {
-		return brdNo;
+	public Integer getBrd_no() {
+		return brd_no;
 	}
 
-
-	public void setBrdNo(Integer brdNo) {
-		this.brdNo = brdNo;
+	public void setBrd_no(Integer brd_no) {
+		this.brd_no = brd_no;
 	}
 
-
-	public String getCategoryCd() {
-		return categoryCd;
+	public String getCategory_cd() {
+		return category_cd;
 	}
 
-
-	public void setCategoryCd(String categoryCd) {
-		this.categoryCd = categoryCd;
+	public void setCategory_cd(String category_cd) {
+		this.category_cd = category_cd;
 	}
-
 
 	public String getTitle() {
 		return title;
 	}
 
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
 
 	public String getContent() {
 		return content;
 	}
 
-
 	public void setContent(String content) {
 		this.content = content;
 	}
-
 
 	public String getTag() {
 		return tag;
 	}
 
-
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
 
-
-	public int getViewCnt() {
-		return viewCnt;
+	public int getView_cnt() {
+		return view_cnt;
 	}
 
-
-	public void setViewCnt(int viewCnt) {
-		this.viewCnt = viewCnt;
+	public void setView_cnt(int view_cnt) {
+		this.view_cnt = view_cnt;
 	}
 
-
-	public String getUserId() {
-		return userId;
+	public String getUser_id() {
+		return user_id;
 	}
 
-
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 
-
-	public Date getRegDate() {
-		return regDate;
+	public Date getReg_date() {
+		return reg_date;
 	}
 
-
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setReg_date(Date reg_date) {
+		this.reg_date = reg_date;
 	}
 
-
-	public Date getEditDate() {
-		return editDate;
+	public Date getEdit_date() {
+		return edit_date;
 	}
 
-
-	public void setEditDate(Date editDate) {
-		this.editDate = editDate;
+	public void setEdit_date(Date edit_date) {
+		this.edit_date = edit_date;
 	}
 
 	@Override
 	public String toString() {
-		return "BoardVo [brdNo=" + brdNo + ", categoryCd=" + categoryCd + ", title=" + title + ", content="
-				+ content + ", tag=" + tag + ", viewCnt=" + viewCnt + ", userId=" + userId + ", regDate=" + regDate
-				+ ", editDate=" + editDate + "]";
+		return "BoardVo [brd_no=" + brd_no + ", category_cd=" + category_cd + ", title=" + title + ", content="
+				+ content + ", tag=" + tag + ", view_cnt=" + view_cnt + ", user_id=" + user_id + ", reg_date=" + reg_date
+				+ ", edit_date=" + edit_date + "]";
 	}
 
 }

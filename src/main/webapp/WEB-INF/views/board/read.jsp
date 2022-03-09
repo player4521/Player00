@@ -45,23 +45,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					<div class="col-lg-12">
 						<div class="card">
 							<div class="card-header">
-								<h3 class="card-title">title : ${article.title}</h3>
+								<h3 class="card-title">title : ${board.title}</h3>
 							</div>
 							<div class="card-body" style="height: 700px">
-								${article.content}</div>
+								${board.content}</div>
 							<div class="card-footer">
 								<div class="user-block">
 									<img class="img-circle img-bordered-sm"
 										src="${path}/dist/img/user1-128x128.jpg" alt="user image">
-									<span class="username"> <a href="#">${article.writer}</a>
+									<span class="username"> <a href="#">${board.writer}</a>
 									</span> <span class="description"><fmt:formatDate
-											pattern="yyyy-MM-dd" value="${article.regDate}" /></span>
+											pattern="yyyy-MM-dd" value="${board.reg_date}" /></span>
 								</div>
 							</div>
 							<div class="card-footer">
 								<form role="form" method="post">
 									<input type="hidden" name="article_no"
-										value="${article.article_no}">
+										value="${board.brd_no}">
 								</form>
 								<button type="submit" class="btn btn-primary listBtn">
 									<i class="fa fa-list"></i> list

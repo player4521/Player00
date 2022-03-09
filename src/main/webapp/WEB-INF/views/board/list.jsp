@@ -1,9 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<!-- jstl,c태그를 사용할 수 있도록 해줌 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!-- jstl,fmt태그를 사용할 수 있도록 해줌 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<%@ page session="false"%>
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
-<html lang="UTF-8">
+<html>
 <%@ include file="../include/head.jsp"%>
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
@@ -50,23 +55,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<div class="card-body">
 								<table class="table table-bordered">
 									<tbody>
-										<tr>
-											<th style="width: 30px">#</th>
-											<th>title</th>
-											<th style="width: 100px">name</th>
-											<th style="width: 150px">date</th>
-											<th style="width: 60px">views</th>
-										</tr>
-										<c:forEach items="${board}" var="board">
-											<tr>
-												<td>${board.brdNo}</td>
-												<td><a href="${path}/board/select?brdNo=${board.brdNo}">${board.title}</a></td>
-												<td>${board.userId}</td>
-												<td><fmt:formatDate value="${board.regDate}"
-														pattern="yyyy-MM-dd a HH:mm" /></td>
-												<td><span class="badge bg-red">${board.viewCnt}</span></td>
-											</tr>
-										</c:forEach>
+										<c:choose>
+											<c:when test="${empty board}">
+												<tr>
+													<td colspan="5" align="center">No data</td>
+												</tr>
+											</c:when>
+											<c:when test="${!empty board}">
+												<tr>
+													<th style="width: 30px">#</th>
+													<th>title</th>
+													<th style="width: 100px">name</th>
+													<th style="width: 150px">date</th>
+													<th style="width: 60px">views</th>
+												</tr>
+												<c:forEach items="${board}" var="board">
+													<tr>
+														<td>${board.brd_no}</td>
+														<td><a href="${path}/board/read?brdNo=${board.brd_no}">${board.title}</a></td>
+														<td>${board.user_id}</td>
+														<td><fmt:formatDate value="${board.reg_date}" pattern="yyyy-MM-dd a HH:mm" /></td>
+														<td><span class="badge bg-red">${board.view_cnt}</span></td>
+													</tr>
+												</c:forEach>
+											</c:when>
+										</c:choose>
 									</tbody>
 								</table>
 							</div>

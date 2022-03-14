@@ -44,27 +44,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="container-fluid">
 					<div class="col-lg-12">
 						<form role="form" id="writeForm" method="post"
-							action="${path}/article/modify">
+							action="${path}/board/modify">
 							<div class="card">
 								<div class="card-header">
 									<h3 class="card-title">write</h3>
 								</div>
 								<div class="card-body">
-									<input type="hidden" name="article_no"
-										value="${article.article_no}">
+									<input type="hidden" name="brd_no"
+										value="${board.brd_no}">
 									<div class="form-group">
 										<label for="title">title</label> <input class="form-control"
 											id="title" name="title" placeholder="insert title"
-											value="${article.title}">
+											value="${board.title}">
 									</div>
 									<div class="form-group">
 										<label for="content">content</label>
 										<textarea class="form-control" id="content" name="content"
-											rows="30" placeholder="insert content" style="resize: none;">${article.content}</textarea>
+											rows="30" placeholder="insert content" style="resize: none;">${board.content}</textarea>
 									</div>
 									<div class="form-group">
 										<label for="writer">name</label> <input class="form-control"
-											id="writer" name="writer" value="${article.writer}" readonly>
+											id="user_id" name="user_id" value="${board.user_id}" readonly>
 									</div>
 								</div>
 								<div class="card-footer">

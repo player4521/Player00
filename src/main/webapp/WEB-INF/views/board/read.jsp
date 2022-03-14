@@ -1,10 +1,35 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<!-- jstl,c태그를 사용할 수 있도록 해줌 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!-- jstl,fmt태그를 사용할 수 있도록 해줌 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page session="false"%>
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
-<html lang="UTF-8">
+<html>
 <%@ include file="../include/head.jsp"%>
+<!-- jquery cdn -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		var formObj = $("form[role='form']");
+		console.log(formObj);
+		$(".modBtn").on("click", function() {
+			formObj.attr("action", "${path}/board/modify");
+			formObj.attr("method", "get");
+			formObj.submit();
+		});
+		$(".delBtn").on("click", function() {
+			formObj.attr("action", "${path}/board/remove");
+			formObj.submit();
+		});
+		$(".listBtn").on("click", function() {
+			self.location = "${path}/board/list"
+		});
+	});
+</script>
+
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
 
@@ -53,14 +78,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<div class="user-block">
 									<img class="img-circle img-bordered-sm"
 										src="${path}/dist/img/user1-128x128.jpg" alt="user image">
-									<span class="username"> <a href="#">${board.writer}</a>
+									<span class="username"> <a href="#">${board.user_id} Chef</a>
 									</span> <span class="description"><fmt:formatDate
 											pattern="yyyy-MM-dd" value="${board.reg_date}" /></span>
 								</div>
 							</div>
 							<div class="card-footer">
 								<form role="form" method="post">
-									<input type="hidden" name="article_no"
+									<input type="hidden" name=brd_no
 										value="${board.brd_no}">
 								</form>
 								<button type="submit" class="btn btn-primary listBtn">

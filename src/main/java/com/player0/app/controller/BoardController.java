@@ -46,14 +46,13 @@ public class BoardController {
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public String list(Model model) throws Exception {
 		logger.info("list ...");
-		model.addAttribute("board", boardService.listAll());
+		model.addAttribute("boardList", boardService.listAll());
 		return "board/list";
 	}
 
 	// 조회 페이지 이동
 	@RequestMapping(value = "read", method = RequestMethod.GET)
 	public String read(@RequestParam("brd_no") int brdNo, Model model) throws Exception {
-		System.out.println(brdNo);
 		logger.info("read ...");
 		model.addAttribute("board", boardService.read(brdNo));
 		return "board/read";

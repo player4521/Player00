@@ -10,6 +10,31 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="../include/head.jsp"%>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+<script>
+	function fn_contentView(bno, path) {
+		var url = path + "/board/read?brd_no= " + bno;
+		location.href = url;
+	}
+
+	var result = "${msg}";
+	if (result == "regSuccess") {
+		alert("게시글 등록이 완료되었습니다.");
+	} else if (result == "modSuccess") {
+		alert("게시글 수정이 완료되었습니다.");
+	} else if (result == "delSuccess") {
+		alert("게시글 삭제가 완료되었습니다.");
+	}
+
+	// move to white page
+// 	$(document).on('click', '#writeBtn', function(e) {
+// 		e.preventDefault();
+// 		alert(path + "/board/write")
+// 		location.href = path + "/board/write";
+// 	});
+</script>
+
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
 
@@ -56,12 +81,12 @@
 								<table class="table table-bordered">
 									<tbody>
 										<c:choose>
-											<c:when test="${empty board}">
+											<c:when test="${empty boardList}">
 												<tr>
 													<td colspan="5" align="center">No data</td>
 												</tr>
 											</c:when>
-											<c:when test="${!empty board}">
+											<c:when test="${!empty boardList}">
 												<tr>
 													<th style="width: 30px">#</th>
 													<th>title</th>
@@ -69,13 +94,14 @@
 													<th style="width: 150px">date</th>
 													<th style="width: 60px">views</th>
 												</tr>
-												<c:forEach items="${board}" var="board">
+												<c:forEach items="${boardList}" var="list">
 													<tr>
-														<td>${board.brd_no}</td>
-														<td><a href="${path}/board/read?brdNo=${board.brd_no}">${board.title}</a></td>
-														<td>${board.user_id}</td>
-														<td><fmt:formatDate value="${board.reg_date}" pattern="yyyy-MM-dd a HH:mm" /></td>
-														<td><span class="badge bg-red">${board.view_cnt}</span></td>
+														<td><a href="#" onClick="fn_contentView('${list.brd_no}','${path}')"> <c:out value="${list.brd_no}" /></a></td> 
+														<%-- <td>${board.brd_no}</td> --%>
+														<td><a href="${path}/board/read?brd_no=${list.brd_no}">${list.title}</a></td>
+														<td>${list.user_id}</td>
+														<td><fmt:formatDate value="${list.reg_date}" pattern="yyyy-MM-dd a HH:mm" /></td>
+														<td><span class="badge bg-red">${list.view_cnt}</span></td>
 													</tr>
 												</c:forEach>
 											</c:when>
@@ -85,8 +111,7 @@
 							</div>
 							<div class="card-footer">
 								<div class="float-right">
-									<button type="button" class="btn btn-success btn-flat"
-										id="writeBtn">
+									<button type="button" class="btn btn-success btn-flat" id="writeBtn">
 										<i class="fa fa-pencil"></i> write
 									</button>
 								</div>

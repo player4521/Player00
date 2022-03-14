@@ -52,7 +52,7 @@
 		, content = #{content}
 		, edit_date = SYSDATE
 		WHERE
-		brd_no = #{brdNo}
+		brd_no = #{brd_no}
 	</update>
 
 	<delete id="delete">

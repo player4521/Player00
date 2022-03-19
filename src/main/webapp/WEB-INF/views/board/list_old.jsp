@@ -5,29 +5,34 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- jstl,fmt태그를 사용할 수 있도록 해줌 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <%@ page session="false"%>
 <!DOCTYPE html>
 <html>
 <%@ include file="../include/head.jsp"%>
-<!-- jquery cdn -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
 <script>
-	$(document).ready(function() {
-		var formObj = $("form[role='form']");
-		console.log(formObj);
-		$(".modBtn").on("click", function() {
-			formObj.attr("action", "${path}/board/modify");
-			formObj.attr("method", "get");
-			formObj.submit();
-		});
-		$(".delBtn").on("click", function() {
-			formObj.attr("action", "${path}/board/remove");
-			formObj.submit();
-		});
-		$(".listBtn").on("click", function() {
-			self.location = "${path}/board/listPaging"
-		});
-	});
+	function fn_contentView(bno, path) {
+		var url = path + "/board/read?brd_no= " + bno;
+		location.href = url;
+	}
+
+	var result = "${msg}";
+	if (result == "regSuccess") {
+		alert("게시글 등록이 완료되었습니다.");
+	} else if (result == "modSuccess") {
+		alert("게시글 수정이 완료되었습니다.");
+	} else if (result == "delSuccess") {
+		alert("게시글 삭제가 완료되었습니다.");
+	}
+
+	// move to white page
+// 	$(document).on('click', '#writeBtn', function(e) {
+// 		e.preventDefault();
+// 		alert(path + "/board/write")
+// 		location.href = path + "/board/write";
+// 	});
 </script>
 
 <body class="hold-transition sidebar-mini">
@@ -70,32 +75,45 @@
 					<div class="col-lg-12">
 						<div class="card">
 							<div class="card-header">
-								<h3 class="card-title">title : ${board.title}</h3>
+								<h3 class="card-title">Article List</h3>
 							</div>
-							<div class="card-body" style="height: 700px">
-								${board.content}</div>
-							<div class="card-footer">
-								<div class="user-block">
-									<img class="img-circle img-bordered-sm"
-										src="${path}/dist/img/user1-128x128.jpg" alt="user image"> <span
-										class="username"> <a href="#">${board.user_id} Chef</a>
-									</span> <span class="description"><fmt:formatDate
-											pattern="yyyy-MM-dd" value="${board.reg_date}" /></span>
-								</div>
+							<div class="card-body">
+								<table class="table table-bordered">
+									<tbody>
+										<c:choose>
+											<c:when test="${empty boardList}">
+												<tr>
+													<td colspan="5" align="center">No data</td>
+												</tr>
+											</c:when>
+											<c:when test="${!empty boardList}">
+												<tr>
+													<th style="width: 30px">#</th>
+													<th>title</th>
+													<th style="width: 100px">name</th>
+													<th style="width: 150px">date</th>
+													<th style="width: 60px">views</th>
+												</tr>
+												<c:forEach items="${boardList}" var="list">
+													<tr>
+														<td><a href="#" onClick="fn_contentView('${list.brd_no}','${path}')"> <c:out value="${list.brd_no}" /></a></td> 
+														<%-- <td>${board.brd_no}</td> --%>
+														<td><a href="${path}/board/read?brd_no=${list.brd_no}">${list.title}</a></td>
+														<td>${list.user_id}</td>
+														<!-- yyyy-MM-dd a HH:mm 2022-03-16 오후 21:40 -->
+														<td><fmt:formatDate value="${list.reg_date}" pattern="yyyy-MM-dd HH:mm" /></td>
+														<td><span class="badge bg-red">${list.view_cnt}</span></td>
+													</tr>
+												</c:forEach>
+											</c:when>
+										</c:choose>
+									</tbody>
+								</table>
 							</div>
 							<div class="card-footer">
-								<form role="form" method="post">
-									<input type="hidden" name=brd_no value="${board.brd_no}">
-								</form>
-								<button type="submit" class="btn btn-primary listBtn">
-									<i class="fa fa-list"></i> list
-								</button>
 								<div class="float-right">
-									<button type="submit" class="btn btn-warning modBtn">
-										<i class="fa fa-edit"></i> modify
-									</button>
-									<button type="submit" class="btn btn-danger delBtn">
-										<i class="fa fa-trash"></i> delete
+									<button type="button" class="btn btn-success btn-flat" id="writeBtn">
+										<i class="fa fa-pencil"></i> write
 									</button>
 								</div>
 							</div>

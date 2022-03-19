@@ -63,7 +63,7 @@
 		brd_no = #{brdNo}
 	</delete>
 
-	<select id="listAll" resultType="com.player0.app.model.BoardVo">
+	<select id="getBoardList" resultType="com.player0.app.model.BoardVo">
 		<![CDATA[
   		SELECT
   		brd_no as brdNo

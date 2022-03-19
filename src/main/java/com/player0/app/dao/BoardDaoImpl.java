@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.player0.app.common.Criteria;
 import com.player0.app.model.BoardVo;
 
 @Repository
@@ -19,24 +20,38 @@ public class BoardDaoImpl implements BoardDao {
 		this.sqlSession = sqlSession;
 	}
 
+	@Override
 	public void write(BoardVo boardVo) throws Exception {
 		sqlSession.insert(NAMESPACE + ".write", boardVo);
 	}
 
+	@Override
 	public BoardVo read(Integer brdNo) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + ".select", brdNo);
 	}
 
+	@Override
 	public void update(BoardVo boardVo) throws Exception {
 		sqlSession.update(NAMESPACE + ".update", boardVo);
 	}
 
+	@Override
 	public void delete(Integer brdNo) throws Exception {
 		sqlSession.delete(NAMESPACE + ".delete", brdNo);
 	}
 
-	public List<BoardVo> listAll() throws Exception {
-		return sqlSession.selectList(NAMESPACE + ".listAll");
+	@Override
+	public List<BoardVo> getBoardList() throws Exception {
+		return sqlSession.selectList(NAMESPACE + ".getBoardList");
 	}
 
+	@Override
+	public List<BoardVo> getBoardListPaging(int page) throws Exception {
+		return sqlSession.selectList(NAMESPACE + ".getBoardListPaging");
+	}
+
+	@Override
+	public List<BoardVo> listCriteria(Criteria criteria) throws Exception {
+	    return sqlSession.selectList(NAMESPACE + ".listCriteria", criteria);
+	}
 }

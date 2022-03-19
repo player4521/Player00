@@ -11,7 +11,8 @@
 		, content
 		, tag
 		, view_cnt
-		, user_id
+		,
+		user_id
 		, reg_date
 		, edit_date
 		) VALUES (
@@ -33,7 +34,8 @@
 		brd_no
 		, category_cd
 		, title
-		, content
+		,
+		content
 		, tag
 		, view_cnt
 		, user_id
@@ -49,7 +51,8 @@
 		UPDATE general_board
 		SET
 		title = #{title}
-		, content = #{content}
+		, content =
+		#{content}
 		, edit_date = SYSDATE
 		WHERE
 		brd_no = #{brd_no}
@@ -63,7 +66,8 @@
 		brd_no = #{brd_no}
 	</delete>
 
-	<select id="listAll" resultType="com.player0.app.model.BoardVo">
+	<select id="getBoardList"
+		resultType="com.player0.app.model.BoardVo">
 		<![CDATA[
   		SELECT
   		brd_no
@@ -85,8 +89,49 @@
   		]]>
 	</select>
 
+	<select id="getBoardListPaging" resultMap="BoardResultMap">
+		<![CDATA[
+		SELECT
+		brd_no
+		, category_cd
+		, title
+		, content
+		, tag
+		, view_cnt
+		, user_id
+		, reg_date
+		FROM
+		general_board
+		ORDER BY
+		brd_no DESC
+		OFFSET #{startPage} ROWS 
+		FETCH NEXT #{perPageNum} ROWS ONLY
+		]]>
+	</select>
+
+	<select id="listCriteria" resultMap="BoardResultMap">
+		<![CDATA[
+		SELECT 
+		brd_no
+		, category_cd
+		, title
+		, content
+		, tag
+		, view_cnt
+		, user_id
+		, reg_date
+		FROM
+		general_board
+		WHERE brd_no > 0
+		ORDER BY brd_no DESC, reg_date DESC
+		OFFSET #{startPage} ROWS 
+		FETCH NEXT #{perPageNum} ROWS ONLY
+		]]>
+	</select>
+
 	<!-- Java와DB변수명이 다른 경우 resultType 이 아닌 resultMap을 사용 -->
-	<resultMap id="BoardResultMap" type="com.player0.app.model.BoardVo">
+	<resultMap id="BoardResultMap"
+		type="com.player0.app.model.BoardVo">
 		<id property="brd_no" column="brd_no" />
 		<result property="category_cd" column="category_cd" />
 		<result property="title" column="title" />

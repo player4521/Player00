@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.player0.app.common.Criteria;
+import com.player0.app.common.PageMaker;
 import com.player0.app.model.BoardVo;
 import com.player0.app.service.BoardService;
 
@@ -39,15 +41,36 @@ public class BoardController {
 		logger.info(boardVo.toString());
 		boardService.write(boardVo);
 		redirectAttributes.addFlashAttribute("msg", "regSuccess");
-		return "redirect:/board/list";
+		return "redirect:/board/listPaging";
 	}
 
-	// 목록 페이지 이동
-	@RequestMapping(value = "list", method = RequestMethod.GET)
-	public String list(Model model) throws Exception {
-		logger.info("list ...");
-		model.addAttribute("boardList", boardService.listAll());
-		return "board/list";
+	// 페이징 적용으로 인한 삭제
+//	// 목록 페이지 이동
+//	@RequestMapping(value = "list", method = RequestMethod.GET)
+//	public String list(Model model) throws Exception {
+//		logger.info("list ...");
+//		model.addAttribute("boardList", boardService.getBoardList());
+//		return "board/list";
+//	}
+//
+//	// 페이징 후 리스트 표시
+//	@RequestMapping(value = "/listCriteria", method = RequestMethod.GET)
+//	public String listCriteria(Model model, Criteria criteria) throws Exception {
+//		logger.info("listCriteria ...");
+//		model.addAttribute("boardList", boardService.listCriteria(criteria));
+//		return "/board/list_criteria";
+//	}
+
+	// 페이징, 페이지 번호 적용후 리스트 이동
+	@RequestMapping(value = "/listPaging", method = RequestMethod.GET)
+	public String listPaging(Model model, Criteria criteria) throws Exception {
+		logger.info("listPaging ...");
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCriteria(criteria);
+		pageMaker.setTotalCount(1000);
+		model.addAttribute("boardList", boardService.listCriteria(criteria));
+		model.addAttribute("pageMaker", pageMaker);
+		return "/board/list_paging";
 	}
 
 	// 조회 페이지 이동
@@ -72,7 +95,7 @@ public class BoardController {
 		logger.info("modifyPOST ...");
 		boardService.update(boardVo);
 		redirectAttributes.addFlashAttribute("msg", "modSuccess");
-		return "redirect:/board/list";
+		return "redirect:/board/listPaging";
 	}
 
 	// 삭제 처리
@@ -81,6 +104,7 @@ public class BoardController {
 		logger.info("remove ...");
 		boardService.delete(brdNo);
 		redirectAttributes.addFlashAttribute("msg", "delSuccess");
-		return "redirect:/board/list";
+		return "redirect:/board/listPaging";
 	}
+
 }

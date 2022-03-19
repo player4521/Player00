@@ -10,8 +10,8 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="../include/head.jsp"%>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-
+<!-- jquery cdn -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 	function fn_contentView(bno, path) {
 		var url = path + "/board/read?brd_no= " + bno;
@@ -27,6 +27,15 @@
 		alert("게시글 삭제가 완료되었습니다.");
 	}
 
+	$(document).ready(function() {
+		var formObj = $("form[role='form']");
+		console.log(formObj);
+		$(".writeBtn").on("click", function() {
+			formObj.attr("action", "${path}/board/write");
+			formObj.attr("method", "get");
+			formObj.submit();
+		});
+	});
 	// move to white page
 // 	$(document).on('click', '#writeBtn', function(e) {
 // 		e.preventDefault();
@@ -100,7 +109,8 @@
 														<%-- <td>${board.brd_no}</td> --%>
 														<td><a href="${path}/board/read?brd_no=${list.brd_no}">${list.title}</a></td>
 														<td>${list.user_id}</td>
-														<td><fmt:formatDate value="${list.reg_date}" pattern="yyyy-MM-dd a HH:mm" /></td>
+														<!-- yyyy-MM-dd a HH:mm 2022-03-16 오후 21:40 -->
+														<td><fmt:formatDate value="${list.reg_date}" pattern="yyyy-MM-dd HH:mm" /></td>
 														<td><span class="badge bg-red">${list.view_cnt}</span></td>
 													</tr>
 												</c:forEach>
@@ -111,10 +121,33 @@
 							</div>
 							<div class="card-footer">
 								<div class="float-right">
-									<button type="button" class="btn btn-success btn-flat" id="writeBtn">
+									<button type="button" class="btn btn-success btn-flat"
+										id="writeBtn">
 										<i class="fa fa-pencil"></i> write
 									</button>
 								</div>
+							</div>
+							<div class="card-footer">
+								<nav aria-label="Contacts Page Navigation">
+									<ul class="pagination justify-content-center m-0">
+										<c:if test="${pageMaker.prev}">
+											<li class="page-item"><a class="page-link"
+												href="${path}/board/listPaging?page=${pageMaker.startPage - 1}">이전</a></li>
+										</c:if>
+										<c:forEach begin="${pageMaker.startPage}"
+											end="${pageMaker.endPage}" var="idx">
+											<li class="page-item"
+												<c:out value="${pageMaker.criteria.page == idx ? 'class=active' : ''}"/>>
+												<a class="page-link"
+												href="${path}/board/listPaging?page=${idx}">${idx}</a>
+											</li>
+										</c:forEach>
+										<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+											<li class="page-item"><a class="page-link"
+												href="${path}/board/listPaging?page=${pageMaker.endPage + 1}">다음</a></li>
+										</c:if>
+									</ul>
+								</nav>
 							</div>
 						</div>
 					</div>

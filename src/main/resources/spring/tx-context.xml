@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- Transaction 설정 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- @Transactional어노테이션을 사용할 경우 필요없음============== -->
+	<!-- Transaction을 위한 AOP 설정 -->
+	<!-- <aop:config proxy-target-class="true"> -->
+	<!-- <aop:pointcut id="servicePublicMethod" -->
+	<!-- expression="execution(public * com.player0.app..*(int))" /> -->
+	<!-- <aop:advisor advice-ref="txAdvice" -->
+	<!-- pointcut-ref="servicePublicMethod" /> -->
+	<!-- </aop:config> -->
+
+	<!-- 선언적 Transaction 설정 -->
+	<!-- <tx:advice id="txAdvice" -->
+	<!-- transaction-manager="transactionManager"> -->
+	<!-- <tx:attributes> -->
+	<!-- getBoardContent에서 문제가 발생하면 롤백 -->
+	<!-- <tx:method name="getBoardContent" rollback-for="Exception" /> -->
+	<!-- </tx:attributes> -->
+	<!-- </tx:advice> -->
+	<!-- @Transactional어노테이션을 사용할 경우 필요없음============== -->
+
+	<!-- @Transactional어노테이션을 사용할 경우 추가 -->
+	<!-- 어노테이션은 BoardServiceImpl.java에 붙임 -->
+	<tx:annotation-driven />
+</beans>

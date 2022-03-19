@@ -6,7 +6,9 @@ import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.player0.app.common.Criteria;
 import com.player0.app.dao.BoardDao;
 import com.player0.app.model.BoardVo;
 
@@ -26,6 +28,7 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.write(boardVo);
 	}
 
+	@Transactional
 	@Override
 	public BoardVo read(Integer brdNo) throws Exception {
 		return boardDao.read(brdNo);
@@ -42,8 +45,12 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVo> listAll() throws Exception {
-		return boardDao.listAll();
+	public List<BoardVo> getBoardList() throws Exception {
+		return boardDao.getBoardList();
 	}
 
+	@Override
+	public List<BoardVo> listCriteria(Criteria criteria) throws Exception {
+	    return boardDao.listCriteria(criteria);
+	}
 }

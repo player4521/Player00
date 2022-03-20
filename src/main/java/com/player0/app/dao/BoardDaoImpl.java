@@ -40,18 +40,18 @@ public class BoardDaoImpl implements BoardDao {
 		sqlSession.delete(NAMESPACE + ".delete", brdNo);
 	}
 
+//	@Override
+//	public List<BoardVo> getBoardList() throws Exception {
+//		return sqlSession.selectList(NAMESPACE + ".getBoardList");
+//	}
+	
 	@Override
-	public List<BoardVo> getBoardList() throws Exception {
-		return sqlSession.selectList(NAMESPACE + ".getBoardList");
+	public List<BoardVo> boardListPaging(Criteria criteria) throws Exception {
+		return sqlSession.selectList(NAMESPACE + ".boardListPaging", criteria);
 	}
 
 	@Override
-	public List<BoardVo> getBoardListPaging(int page) throws Exception {
-		return sqlSession.selectList(NAMESPACE + ".getBoardListPaging");
-	}
-
-	@Override
-	public List<BoardVo> listCriteria(Criteria criteria) throws Exception {
-	    return sqlSession.selectList(NAMESPACE + ".listCriteria", criteria);
+	public int countArticles(Criteria criteria) throws Exception {
+	    return sqlSession.selectOne(NAMESPACE + ".countArticles", criteria);
 	}
 }

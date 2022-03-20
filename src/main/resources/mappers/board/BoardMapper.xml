@@ -11,8 +11,7 @@
 		, content
 		, tag
 		, view_cnt
-		,
-		user_id
+		, user_id
 		, reg_date
 		, edit_date
 		) VALUES (
@@ -34,8 +33,7 @@
 		brd_no
 		, category_cd
 		, title
-		,
-		content
+		, content
 		, tag
 		, view_cnt
 		, user_id
@@ -51,8 +49,7 @@
 		UPDATE general_board
 		SET
 		title = #{title}
-		, content =
-		#{content}
+		, content = #{content}
 		, edit_date = SYSDATE
 		WHERE
 		brd_no = #{brd_no}
@@ -66,50 +63,31 @@
 		brd_no = #{brd_no}
 	</delete>
 
-	<select id="getBoardList"
-		resultType="com.player0.app.model.BoardVo">
-		<![CDATA[
-  		SELECT
-  		brd_no
-  		, category_cd
-  		, title
-  		, content
-  		, tag
-  		, view_cnt
-  		, user_id
-  		, reg_date
-  		, edit_date
-  		FROM
-  		general_board
-  		WHERE
-  		brd_no > 0
-  		ORDER BY
-  		brd_no DESC
-  		, reg_date DESC
-  		]]>
-	</select>
+<!-- 	<select id="getBoardList" -->
+<!-- 		resultType="com.player0.app.model.BoardVo"> -->
+<!-- 		<![CDATA[ -->
+<!--   		SELECT -->
+<!--   		brd_no -->
+<!--   		, category_cd -->
+<!--   		, title -->
+<!--   		, content -->
+<!--   		, tag -->
+<!--   		, view_cnt -->
+<!--   		, user_id -->
+<!--   		, reg_date -->
+<!--   		, edit_date -->
+<!--   		FROM -->
+<!--   		general_board -->
+<!--   		WHERE -->
+<!--   		brd_no > 0 -->
+<!--   		ORDER BY -->
+<!--   		brd_no DESC -->
+<!--   		, reg_date DESC -->
+<!--   		]]> -->
+<!-- 	</select> -->
 
-	<select id="getBoardListPaging" resultMap="BoardResultMap">
-		<![CDATA[
-		SELECT
-		brd_no
-		, category_cd
-		, title
-		, content
-		, tag
-		, view_cnt
-		, user_id
-		, reg_date
-		FROM
-		general_board
-		ORDER BY
-		brd_no DESC
-		OFFSET #{startPage} ROWS 
-		FETCH NEXT #{perPageNum} ROWS ONLY
-		]]>
-	</select>
-
-	<select id="listCriteria" resultMap="BoardResultMap">
+	<!-- 페이징 처리 후 자유게시판 리스트 -->
+	<select id="boardListPaging" resultMap="BoardResultMap">
 		<![CDATA[
 		SELECT 
 		brd_no
@@ -127,6 +105,36 @@
 		OFFSET #{startPage} ROWS 
 		FETCH NEXT #{perPageNum} ROWS ONLY
 		]]>
+	</select>
+
+<!-- 	<select id="getBoardListPaging" resultMap="BoardResultMap"> -->
+<!-- 		<![CDATA[ -->
+<!-- 		SELECT -->
+<!-- 		brd_no -->
+<!-- 		, category_cd -->
+<!-- 		, title -->
+<!-- 		, content -->
+<!-- 		, tag -->
+<!-- 		, view_cnt -->
+<!-- 		, user_id -->
+<!-- 		, reg_date -->
+<!-- 		FROM -->
+<!-- 		general_board -->
+<!-- 		ORDER BY -->
+<!-- 		brd_no DESC -->
+<!-- 		OFFSET #{startPage} ROWS  -->
+<!-- 		FETCH NEXT #{perPageNum} ROWS ONLY -->
+<!-- 		]]> -->
+<!-- 	</select> -->
+
+	<!-- 전체 게시글 수 -->
+	<select id="countArticles" resultType="int">
+	    <![CDATA[
+	    SELECT
+	        COUNT(brd_no)
+	    FROM general_board
+	    WHERE brd_no > 0
+	    ]]>
 	</select>
 
 	<!-- Java와DB변수명이 다른 경우 resultType 이 아닌 resultMap을 사용 -->

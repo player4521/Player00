@@ -9,15 +9,6 @@ public class PageMaker {
 	private int displayPageNum = 10; // 하단 페이지 번호의 갯수
 	private Criteria criteria;
 
-	public void setCriteria(Criteria criteria) {
-		this.criteria = criteria;
-	}
-
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
-		calcData();
-	}
-
 	// 게시글의 전체 갯수가 결정되면 calcData 메소드를 호출하여 계산 실행
 	private void calcData() {
 		endPage = (int) (Math.ceil(criteria.getPage() / (double) displayPageNum) * displayPageNum);
@@ -70,8 +61,17 @@ public class PageMaker {
 		this.displayPageNum = displayPageNum;
 	}
 
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+		calcData();
+	}
+
 	public int getTotalCount() {
 		return totalCount;
+	}
+
+	public void setCriteria(Criteria criteria) {
+		this.criteria = criteria;
 	}
 
 	public Criteria getCriteria() {

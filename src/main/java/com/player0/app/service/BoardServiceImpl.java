@@ -44,13 +44,19 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.delete(brdNo);
 	}
 
+//	@Override
+//	public List<BoardVo> getBoardList() throws Exception {
+//		return boardDao.getBoardList();
+//	}
+
 	@Override
-	public List<BoardVo> getBoardList() throws Exception {
-		return boardDao.getBoardList();
+	public List<BoardVo> boardListPaging(Criteria criteria) throws Exception {
+	    return boardDao.boardListPaging(criteria);
 	}
 
 	@Override
-	public List<BoardVo> listCriteria(Criteria criteria) throws Exception {
-	    return boardDao.listCriteria(criteria);
+	public int countArticles(Criteria criteria) throws Exception {
+	    return boardDao.countArticles(criteria);
 	}
+
 }

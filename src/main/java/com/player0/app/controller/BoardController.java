@@ -67,8 +67,8 @@ public class BoardController {
 		logger.info("listPaging ...");
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCriteria(criteria);
-		pageMaker.setTotalCount(1000);
-		model.addAttribute("boardList", boardService.listCriteria(criteria));
+		pageMaker.setTotalCount(boardService.countArticles(criteria));
+		model.addAttribute("boardList", boardService.boardListPaging(criteria));
 		model.addAttribute("pageMaker", pageMaker);
 		return "/board/list_paging";
 	}

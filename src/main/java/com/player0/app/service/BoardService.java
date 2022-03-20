@@ -14,7 +14,10 @@ public interface BoardService {
 
 	void delete(Integer brdNo) throws Exception;
 
-	List<BoardVo> getBoardList() throws Exception;
-	
-	List<BoardVo> listCriteria(Criteria criteria) throws Exception;
+//	List<BoardVo> getBoardList() throws Exception;
+
+	List<BoardVo> boardListPaging(Criteria criteria) throws Exception;
+
+	int countArticles(Criteria criteria) throws Exception;
+
 }

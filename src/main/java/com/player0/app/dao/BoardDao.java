@@ -14,9 +14,10 @@ public interface BoardDao {
 
 	void delete(Integer brdNo) throws Exception;
 
-	List<BoardVo> getBoardList() throws Exception;
+//	List<BoardVo> getBoardList() throws Exception;
 
-	List<BoardVo> getBoardListPaging(int page) throws Exception;
+	List<BoardVo> boardListPaging(Criteria criteria) throws Exception;
 
-	List<BoardVo> listCriteria(Criteria criteria) throws Exception;
+	int countArticles(Criteria criteria) throws Exception;
+
 }

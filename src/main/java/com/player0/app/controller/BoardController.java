@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,25 +45,8 @@ public class BoardController {
 		return "redirect:/board/listPaging";
 	}
 
-	// 페이징 적용으로 인한 삭제
-//	// 목록 페이지 이동
-//	@RequestMapping(value = "list", method = RequestMethod.GET)
-//	public String list(Model model) throws Exception {
-//		logger.info("list ...");
-//		model.addAttribute("boardList", boardService.getBoardList());
-//		return "board/list";
-//	}
-//
-//	// 페이징 후 리스트 표시
-//	@RequestMapping(value = "/listCriteria", method = RequestMethod.GET)
-//	public String listCriteria(Model model, Criteria criteria) throws Exception {
-//		logger.info("listCriteria ...");
-//		model.addAttribute("boardList", boardService.listCriteria(criteria));
-//		return "/board/list_criteria";
-//	}
-
 	// 페이징, 페이지 번호 적용후 리스트 이동
-	@RequestMapping(value = "/listPaging", method = RequestMethod.GET)
+	@RequestMapping(value = "listPaging", method = RequestMethod.GET)
 	public String listPaging(Model model, Criteria criteria) throws Exception {
 		logger.info("listPaging ...");
 		PageMaker pageMaker = new PageMaker();
@@ -75,34 +59,41 @@ public class BoardController {
 
 	// 조회 페이지 이동
 	@RequestMapping(value = "read", method = RequestMethod.GET)
-	public String read(@RequestParam("brd_no") int brdNo, Model model) throws Exception {
-		logger.info("read ...");
-		model.addAttribute("board", boardService.read(brdNo));
-		return "board/read";
+	public String readPaging(@RequestParam("brd_no") int brd_no, @ModelAttribute("criteria") Criteria criteria,
+			Model model) throws Exception {
+		model.addAttribute("board", boardService.read(brd_no));
+		return "/board/read";
 	}
 
 	// 수정 페이지 이동
 	@RequestMapping(value = "modify", method = RequestMethod.GET)
-	public String modifyGET(@RequestParam("brd_no") int brdNo, Model model) throws Exception {
-		logger.info("modifyGet ...");
+	public String modifyGETPaging(@RequestParam("brd_no") int brdNo, @ModelAttribute("criteria") Criteria criteria,
+			Model model) throws Exception {
+		logger.info("modifyGetPaging ...");
 		model.addAttribute("board", boardService.read(brdNo));
-		return "board/modify";
+		return "/board/modify";
 	}
 
 	// 수정 처리
 	@RequestMapping(value = "modify", method = RequestMethod.POST)
-	public String modifyPOST(BoardVo boardVo, RedirectAttributes redirectAttributes) throws Exception {
-		logger.info("modifyPOST ...");
+	public String modifyPOSTPaging(BoardVo boardVo, Criteria criteria, RedirectAttributes redirectAttributes)
+			throws Exception {
+		logger.info("modifyPOSTPaging ...");
 		boardService.update(boardVo);
+		redirectAttributes.addAttribute("page", criteria.getPage());
+		redirectAttributes.addAttribute("perPageNum", criteria.getPerPageNum());
 		redirectAttributes.addFlashAttribute("msg", "modSuccess");
 		return "redirect:/board/listPaging";
 	}
 
 	// 삭제 처리
 	@RequestMapping(value = "remove", method = RequestMethod.POST)
-	public String remove(@RequestParam("brd_no") int brdNo, RedirectAttributes redirectAttributes) throws Exception {
+	public String removePaging(@RequestParam("brd_no") int brdNo, Criteria criteria,
+			RedirectAttributes redirectAttributes) throws Exception {
 		logger.info("remove ...");
 		boardService.delete(brdNo);
+		redirectAttributes.addAttribute("page", criteria.getPage());
+		redirectAttributes.addAttribute("perPageNum", criteria.getPerPageNum());
 		redirectAttributes.addFlashAttribute("msg", "delSuccess");
 		return "redirect:/board/listPaging";
 	}

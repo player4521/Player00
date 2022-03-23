@@ -39,11 +39,6 @@ public class BoardDaoImpl implements BoardDao {
 	public void delete(Integer brdNo) throws Exception {
 		sqlSession.delete(NAMESPACE + ".delete", brdNo);
 	}
-
-//	@Override
-//	public List<BoardVo> getBoardList() throws Exception {
-//		return sqlSession.selectList(NAMESPACE + ".getBoardList");
-//	}
 	
 	@Override
 	public List<BoardVo> boardListPaging(Criteria criteria) throws Exception {

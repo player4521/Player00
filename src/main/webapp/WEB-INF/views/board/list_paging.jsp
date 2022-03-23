@@ -36,6 +36,7 @@
 			formObj.submit();
 		});
 	});
+
 	// move to white page
 // 	$(document).on('click', '#writeBtn', function(e) {
 // 		e.preventDefault();
@@ -107,7 +108,7 @@
 													<tr>
 														<td><a href="#" onClick="fn_contentView('${list.brd_no}','${path}')"> <c:out value="${list.brd_no}" /></a></td> 
 														<%-- <td>${board.brd_no}</td> --%>
-														<td><a href="${path}/board/read?brd_no=${list.brd_no}">${list.title}</a></td>
+														<td><a href="${path}/board/read${pageMaker.makeQuery(pageMaker.criteria.page)}&brd_no=${list.brd_no}">${list.title}</a></td>
 														<td>${list.user_id}</td>
 														<!-- yyyy-MM-dd a HH:mm 2022-03-16 오후 21:40 -->
 														<td><fmt:formatDate value="${list.reg_date}" pattern="yyyy-MM-dd HH:mm" /></td>
@@ -132,19 +133,19 @@
 									<ul class="pagination justify-content-center m-0">
 										<c:if test="${pageMaker.prev}">
 											<li class="page-item"><a class="page-link"
-												href="${path}/board/listPaging?page=${pageMaker.startPage - 1}">이전</a></li>
+												href="${path}/board/listPaging${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
 										</c:if>
 										<c:forEach begin="${pageMaker.startPage}"
 											end="${pageMaker.endPage}" var="idx">
 											<li class="page-item"
 												<c:out value="${pageMaker.criteria.page == idx ? 'class=active' : ''}"/>>
 												<a class="page-link"
-												href="${path}/board/listPaging?page=${idx}">${idx}</a>
+												href="${path}/board/listPaging${pageMaker.makeQuery(idx)}">${idx}</a>
 											</li>
 										</c:forEach>
 										<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 											<li class="page-item"><a class="page-link"
-												href="${path}/board/listPaging?page=${pageMaker.endPage + 1}">다음</a></li>
+												href="${path}/board/listPaging${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
 										</c:if>
 									</ul>
 								</nav>

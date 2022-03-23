@@ -1,5 +1,8 @@
 package com.player0.app.common;
 
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class PageMaker {
 	private int totalCount;
 	private int startPage;
@@ -19,6 +22,13 @@ public class PageMaker {
 		}
 		prev = startPage == 1 ? false : true;
 		next = endPage * criteria.getPerPageNum() >= totalCount ? false : true;
+	}
+
+	// URL 생성 처리
+	public String makeQuery(int page) {
+		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
+				.queryParam("perPageNum", criteria.getPerPageNum()).build();
+		return uriComponents.toUriString();
 	}
 
 	public int getStartPage() {

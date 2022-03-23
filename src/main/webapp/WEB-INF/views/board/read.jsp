@@ -1,9 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<!-- jstl,c태그를 사용할 수 있도록 해줌 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!-- jstl,fmt태그를 사용할 수 있도록 해줌 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page session="false"%>
 <!DOCTYPE html>
@@ -85,7 +82,9 @@
 							</div>
 							<div class="card-footer">
 								<form role="form" method="post">
-									<input type="hidden" name=brd_no value="${board.brd_no}">
+									<input type="hidden" name="brd_no" value="${board.brd_no}">
+									<input type="hidden" name="page" value="${criteria.page}">
+									<input type="hidden" name="perPageNum" value="${criteria.perPageNum}">
 								</form>
 								<button type="submit" class="btn btn-primary listBtn">
 									<i class="fa fa-list"></i> list

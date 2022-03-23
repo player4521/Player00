@@ -1,10 +1,29 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page session="false"%>
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
-<html lang="UTF-8">
+<html>
 <%@ include file="../include/head.jsp"%>
+<!-- jquery cdn -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		var formObj = $("form[role='form']");
+		console.log(formObj);
+		$(".modBtn").on("click", function() {
+			formObj.submit();
+		});
+		$(".cancelBtn").on("click", function() {
+			history.go(-1);
+		});
+		$(".listBtn").on("click", function() {
+			self.location = "${path}/board/listPaging?page=${criteria.page}&perPageNum=${criteria.perPageNum}";
+		});
+	});
+</script>
+
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
 
@@ -50,8 +69,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									<h3 class="card-title">write</h3>
 								</div>
 								<div class="card-body">
-									<input type="hidden" name="brd_no"
-										value="${board.brd_no}">
+									<input type="hidden" name="brd_no" value="${board.brd_no}">
+									<input type="hidden" name="page" value="${criteria.page}">
+									<input type="hidden" name="perPageNum" value="${criteria.perPageNum}">
 									<div class="form-group">
 										<label for="title">title</label> <input class="form-control"
 											id="title" name="title" placeholder="insert title"

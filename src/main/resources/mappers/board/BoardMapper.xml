@@ -63,30 +63,7 @@
 		brd_no = #{brd_no}
 	</delete>
 
-	<!-- <select id="getBoardList" -->
-	<!-- resultType="com.player0.app.model.BoardVo"> -->
-	<!-- <![CDATA[ -->
-	<!-- SELECT -->
-	<!-- brd_no -->
-	<!-- , category_cd -->
-	<!-- , title -->
-	<!-- , content -->
-	<!-- , tag -->
-	<!-- , view_cnt -->
-	<!-- , user_id -->
-	<!-- , reg_date -->
-	<!-- , edit_date -->
-	<!-- FROM -->
-	<!-- general_board -->
-	<!-- WHERE -->
-	<!-- brd_no > 0 -->
-	<!-- ORDER BY -->
-	<!-- brd_no DESC -->
-	<!-- , reg_date DESC -->
-	<!-- ]]> -->
-	<!-- </select> -->
-
-	<!-- 페이징 처리 후 자유게시판 리스트 -->
+	<!-- 자유게시판 리스트 -->
 	<select id="boardListPaging" resultMap="BoardResultMap">
 		<![CDATA[
 		SELECT 
@@ -101,13 +78,16 @@
 		FROM
 		general_board
 		WHERE brd_no > 0
+		]]>
+		  <include refid="search"/>
+		<![CDATA[
 		ORDER BY brd_no DESC, reg_date DESC
 		OFFSET #{startPage} ROWS 
 		FETCH NEXT #{perPageNum} ROWS ONLY
 		]]>
 	</select>
 
-	<!-- 전체 게시글 수 -->
+	<!-- 게시글 수 -->
 	<select id="countArticles" resultType="int">
 	    <![CDATA[
 	    SELECT
@@ -115,11 +95,27 @@
 	    FROM general_board
 	    WHERE brd_no > 0
 	    ]]>
+	    <include refid="search"/>
 	</select>
 
+	<!-- 검색 부분 쿼리 -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()"> AND title LIKE '%' || #{keyword} || '%' </if>
+			<if test="searchType == 'c'.toString()"> AND content LIKE '%' || #{keyword} || '%' </if>
+			<if test="searchType == 'w'.toString()"> AND user_id LIKE '%' || #{keyword} || '%' </if>
+			<if test="searchType == 'tc'.toString()"> AND ( title LIKE '%' || #{keyword} || '%' OR content
+				LIKE '%' || #{keyword} || '%' ) </if>
+			<if test="searchType == 'cw'.toString()"> AND ( content LIKE '%' || #{keyword} || '%' OR
+ 				user_id LIKE '%' || #{keyword} || '%' ) </if>
+			<if test="searchType == 'tcw'.toString()"> AND ( title LIKE '%' || #{keyword} || '%' OR content
+				LIKE '%' || #{keyword} || '%' OR user_id LIKE '%' ||
+				#{keyword} || '%' ) </if>
+		</if>
+	</sql>
+
 	<!-- Java와DB변수명이 다른 경우 resultType 이 아닌 resultMap을 사용 -->
-	<resultMap id="BoardResultMap"
-		type="com.player0.app.model.BoardVo">
+	<resultMap id="BoardResultMap" type="com.player0.app.model.BoardVo">
 		<id property="brd_no" column="brd_no" />
 		<result property="category_cd" column="category_cd" />
 		<result property="title" column="title" />
@@ -129,6 +125,78 @@
 		<result property="user_id" column="user_id" />
 		<result property="reg_date" column="reg_date" />
 		<result property="edit_date" column="edit_date" />
+	</resultMap>
+
+	<select id="boardReList" resultMap="BoardReResultMap">
+		SELECT
+		re_brd_no
+		, brd_no
+		, re_content
+		, user_id
+		, reg_date
+		, edit_date
+		FROM general_board_reply
+		WHERE brd_no = #{brdNo}
+		ORDER BY re_brd_no
+	</select>
+
+	<insert id="boardReWrite">
+		INSERT INTO
+		general_board_reply (
+		brd_no
+		, re_content
+		, user_id
+		) VALUES (
+		#{brdNo}
+		, #{reContent}
+		, #{userId}
+		)
+	</insert>
+
+	<update id="boardReUpdate">
+		UPDATE general_board_reply
+		SET
+		reply_text = #{re_content}
+		, update_date = SYSDATE
+		WHERE re_brd_no = #{brdReNo}
+	</update>
+
+	<delete id="boardReDelete">
+		DELETE FROM general_board_reply
+		WHERE re_brd_no = #{brdReNo}
+	</delete>
+
+	<select id="listPaging" resultMap="BoardReResultMap">
+		SELECT
+		brd_no
+		, category_cd
+		, title
+		, content
+		, tag
+		, view_cnt
+		, user_id
+		, reg_date
+		FROM
+		general_board_reply
+		WHERE brd_no = #{brdNo}
+		ORDER BY brd_no
+		OFFSET #{criteria.page} ROWS
+		FETCH NEXT #{criteria.perPageNum} ROWS ONLY
+	</select>
+
+	<select id="countReplies" resultType="int">
+		SELECT COUNT(brd_no)
+		FROM general_board_reply
+		WHERE brd_no = #{brdNo}
+	</select>
+
+	<resultMap id="BoardReResultMap" type="com.player0.app.model.BoardReVo">
+		<id property="brdReNo" column="re_brd_no" />
+		<result property="brdNo" column="brd_no" />
+		<result property="reContent" column="re_content" />
+		<result property="userId" column="user_id" />
+		<result property="regDate" column="reg_date" />
+		<result property="editDate" column="edit_date" />
 	</resultMap>
 
 </mapper>

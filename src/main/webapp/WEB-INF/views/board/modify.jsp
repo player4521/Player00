@@ -15,11 +15,18 @@
 		$(".modBtn").on("click", function() {
 			formObj.submit();
 		});
+		
+		// TODO 버튼 동작 안함
 		$(".cancelBtn").on("click", function() {
 			history.go(-1);
 		});
+		
+		// TODO 버튼 동작 안함. 버튼타입을 submit으로 할 경우 동작하지만 이동 후 수정완료메세지가 출력됨
 		$(".listBtn").on("click", function() {
-			self.location = "${path}/board/listPaging?page=${criteria.page}&perPageNum=${criteria.perPageNum}";
+			self.location = "${path}/board/listPaging?page=${criteria.page}
+			+ "&perPageNum=${criteria.perPageNum}";
+			+ "&searchType=${criteria.searchType}";
+			+ "&keyword=${criteria.keyword}";
 		});
 	});
 </script>
@@ -72,6 +79,8 @@
 									<input type="hidden" name="brd_no" value="${board.brd_no}">
 									<input type="hidden" name="page" value="${criteria.page}">
 									<input type="hidden" name="perPageNum" value="${criteria.perPageNum}">
+									<input type="hidden" name="searchType" value="${criteria.searchType}">
+									<input type="hidden" name="keyword" value="${criteria.keyword}">
 									<div class="form-group">
 										<label for="title">title</label> <input class="form-control"
 											id="title" name="title" placeholder="insert title"
@@ -88,7 +97,7 @@
 									</div>
 								</div>
 								<div class="card-footer">
-									<button type="button" class="btn btn-primary">
+									<button type="button" class="btn btn-primary listBtn">
 										<i class="fa fa-list"></i> list
 									</button>
 									<div class="float-right">

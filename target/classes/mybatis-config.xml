@@ -5,5 +5,8 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.player0.app" />
+		<!-- TODO 404에러 resultMap이나 resultType을 패키지 경로와 클래스명을 길게 쓰지 않기 위해 -->
+		<!-- <typeAlias type="com.player0.app.model.BoardVo" alias="BoardVo"/> -->
+		<!-- <typeAlias type="com.player0.app.model.BoardReVo" alias="BoardReVo"/> -->
 	</typeAliases>
 </configuration>

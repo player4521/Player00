@@ -1,5 +1,8 @@
 package com.player0.app.common;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -24,11 +27,32 @@ public class PageMaker {
 		next = endPage * criteria.getPerPageNum() >= totalCount ? false : true;
 	}
 
-	// URL 생성 처리
+	// 페이징시 URI 생성 처리
 	public String makeQuery(int page) {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
 				.queryParam("perPageNum", criteria.getPerPageNum()).build();
 		return uriComponents.toUriString();
+	}
+
+	// 검색시 URI 생성 처리
+	public String makeSearch(int page) {
+		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
+				.queryParam("pagePageNum", criteria.getPerPageNum())
+				.queryParam("searchType", ((Criteria) criteria).getSearchType())
+				.queryParam("keyword", encoding(((Criteria) criteria).getKeyword())).build();
+		return uriComponents.toUriString();
+	}
+
+	// 검색 키워드 인코딩
+	private String encoding(String keyword) {
+		if (keyword == null || keyword.trim().length() == 0) {
+			return "";
+		} 
+		try {
+			return URLEncoder.encode(keyword, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			return "";
+		}
 	}
 
 	public int getStartPage() {

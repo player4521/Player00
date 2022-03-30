@@ -76,8 +76,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardReVo> reListPaging(Integer brdNo, Criteria criteria) throws Exception {
-		return boardDao.reListPaging(brdNo, criteria);
+	public List<BoardReVo> replyList(Integer brdNo, Criteria criteria) throws Exception {
+		return boardDao.replyList(brdNo, criteria);
 	}
 
 	@Override

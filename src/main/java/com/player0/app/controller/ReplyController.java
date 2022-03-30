@@ -21,7 +21,7 @@ import com.player0.app.service.BoardService;
 
 // rest 방식으로 구현한 컨트롤러
 @RestController
-@RequestMapping("/board/*")
+@RequestMapping("/reply/*")
 public class ReplyController {
 
 	private final BoardService boardService;
@@ -33,7 +33,7 @@ public class ReplyController {
 
 	// 댓글 목록
 	@RequestMapping(value = "/{brdNo}/{page}", method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> reListPaging(@PathVariable("brdNo") Integer brdNo,
+	public ResponseEntity<Map<String, Object>> replyList(@PathVariable("brdNo") Integer brdNo,
 			@PathVariable("page") Integer page) {
 
 		ResponseEntity<Map<String, Object>> entity = null;
@@ -42,7 +42,7 @@ public class ReplyController {
 			Criteria criteria = new Criteria();
 			criteria.setPage(page);
 
-			List<BoardReVo> replies = boardService.reListPaging(brdNo, criteria);
+			List<BoardReVo> replies = boardService.replyList(brdNo, criteria);
 			int reCount = boardService.countReplies(brdNo);
 
 			PageMaker pageMaker = new PageMaker();

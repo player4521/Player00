@@ -74,11 +74,11 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<BoardReVo> reListPaging(Integer brdNo, Criteria criteria) throws Exception {
+	public List<BoardReVo> replyList(Integer brdNo, Criteria criteria) throws Exception {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("brdNo", brdNo);
 		paramMap.put("criteria", criteria);
-		return sqlSession.selectList(NAMESPACE + ".listPaging", paramMap);
+		return sqlSession.selectList(NAMESPACE + ".replyList", paramMap);
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public interface BoardService {
 
 	void boardReDelete(Integer brdReNo) throws Exception;
 
-	List<BoardReVo> reListPaging(Integer brdNo, Criteria criteria) throws Exception;
+	List<BoardReVo> replyList(Integer brdNo, Criteria criteria) throws Exception;
 
 	int countReplies(Integer brdNo) throws Exception;
 

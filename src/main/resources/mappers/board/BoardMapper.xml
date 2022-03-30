@@ -129,7 +129,7 @@
 
 	<select id="boardReList" resultMap="BoardReResultMap">
 		SELECT
-		re_brd_no
+		brd_re_no
 		, brd_no
 		, re_content
 		, user_id
@@ -137,7 +137,7 @@
 		, edit_date
 		FROM general_board_reply
 		WHERE brd_no = #{brdNo}
-		ORDER BY re_brd_no
+		ORDER BY brd_re_no
 	</select>
 
 	<insert id="boardReWrite">
@@ -146,41 +146,43 @@
 		brd_no
 		, re_content
 		, user_id
+		, reg_date
+		, edit_date
 		) VALUES (
 		#{brdNo}
 		, #{reContent}
 		, #{userId}
+		, SYSDATE
+		, SYSDATE
 		)
 	</insert>
 
 	<update id="boardReUpdate">
 		UPDATE general_board_reply
 		SET
-		reply_text = #{re_content}
-		, update_date = SYSDATE
-		WHERE re_brd_no = #{brdReNo}
+		re_content = #{reContent}
+		, edit_date = SYSDATE
+		WHERE brd_re_no = #{brdReNo}
 	</update>
 
 	<delete id="boardReDelete">
 		DELETE FROM general_board_reply
-		WHERE re_brd_no = #{brdReNo}
+		WHERE brd_re_no = #{brdReNo}
 	</delete>
 
-	<select id="listPaging" resultMap="BoardReResultMap">
+	<select id="replyList" resultMap="BoardReResultMap">
 		SELECT
-		brd_no
-		, category_cd
-		, title
-		, content
-		, tag
-		, view_cnt
+		brd_re_no
+		, brd_no
+		, re_content
 		, user_id
 		, reg_date
+		, edit_date
 		FROM
 		general_board_reply
 		WHERE brd_no = #{brdNo}
-		ORDER BY brd_no
-		OFFSET #{criteria.page} ROWS
+		ORDER BY brd_re_no
+		OFFSET #{criteria.startPage} ROWS
 		FETCH NEXT #{criteria.perPageNum} ROWS ONLY
 	</select>
 
@@ -191,7 +193,7 @@
 	</select>
 
 	<resultMap id="BoardReResultMap" type="com.player0.app.model.BoardReVo">
-		<id property="brdReNo" column="re_brd_no" />
+		<id property="brdReNo" column="brd_re_no" />
 		<result property="brdNo" column="brd_no" />
 		<result property="reContent" column="re_content" />
 		<result property="userId" column="user_id" />

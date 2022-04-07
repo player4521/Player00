@@ -56,9 +56,10 @@
 	</update>
 
 	<delete id="delete">
-		DELETE
-		FROM
-		general_board
+		UPDATE general_board
+		SET
+		edit_date = SYSDATE
+		, delete_flg = 1
 		WHERE
 		brd_no = #{brd_no}
 	</delete>
@@ -73,11 +74,12 @@
 		, content
 		, tag
 		, view_cnt
+		, reply_cnt
 		, user_id
 		, reg_date
 		FROM
 		general_board
-		WHERE brd_no > 0
+		WHERE brd_no > 0 AND delete_flg <> 1
 		]]>
 		  <include refid="search"/>
 		<![CDATA[
@@ -98,6 +100,15 @@
 	    <include refid="search"/>
 	</select>
 
+	<!-- 게시글 번호 습득 -->
+	<select id="getBoardNo" resultType="int">
+		SELECT
+		brd_no
+		FROM
+		general_board
+		WHERE brd_no = #{brd_no}
+	</select>
+
 	<!-- 검색 부분 쿼리 -->
 	<sql id="search">
 		<if test="searchType != null">
@@ -114,6 +125,18 @@
 		</if>
 	</sql>
 
+	<update id="updateReplyCnt">
+		UPDATE general_board
+		SET reply_cnt = reply_cnt + #{reply_cnt}
+		WHERE brd_no = #{brd_no}
+	</update>
+
+	<update id="updateViewCnt">
+		UPDATE general_board
+		SET view_cnt = view_cnt + 1
+		WHERE brd_no = #{brd_no}
+	</update>
+
 	<!-- Java와DB변수명이 다른 경우 resultType 이 아닌 resultMap을 사용 -->
 	<resultMap id="BoardResultMap" type="com.player0.app.model.BoardVo">
 		<id property="brd_no" column="brd_no" />
@@ -122,6 +145,7 @@
 		<result property="content" column="content" />
 		<result property="tag" column="tag" />
 		<result property="view_cnt" column="view_cnt" />
+		<result property="reply_cnt" column="reply_cnt" />
 		<result property="user_id" column="user_id" />
 		<result property="reg_date" column="reg_date" />
 		<result property="edit_date" column="edit_date" />
@@ -192,7 +216,9 @@
 		WHERE brd_no = #{brdNo}
 	</select>
 
-	<resultMap id="BoardReResultMap" type="com.player0.app.model.BoardReVo">
+	<!-- property:VO항목명, column:DB컬럼명 -->
+	<resultMap id="BoardReResultMap"
+		type="com.player0.app.model.BoardReVo">
 		<id property="brdReNo" column="brd_re_no" />
 		<result property="brdNo" column="brd_no" />
 		<result property="reContent" column="re_content" />

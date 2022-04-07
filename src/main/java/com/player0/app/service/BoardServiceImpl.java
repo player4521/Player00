@@ -25,14 +25,19 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void write(BoardVo boardVo) throws Exception {
-		boardDao.write(boardVo);
+	public List<BoardVo> boardListPaging(Criteria criteria) throws Exception {
+		return boardDao.boardListPaging(criteria);
 	}
-
-	@Transactional
+	
+	@Transactional // 트랜잭션 처리
 	@Override
 	public BoardVo read(Integer brdNo) throws Exception {
 		return boardDao.read(brdNo);
+	}
+	
+	@Override
+	public void write(BoardVo boardVo) throws Exception {
+		boardDao.write(boardVo);
 	}
 
 	@Override
@@ -46,11 +51,6 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVo> boardListPaging(Criteria criteria) throws Exception {
-		return boardDao.boardListPaging(criteria);
-	}
-
-	@Override
 	public int countArticles(Criteria criteria) throws Exception {
 		return boardDao.countArticles(criteria);
 	}
@@ -60,9 +60,12 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.boardReList(brdNo);
 	}
 
+
+	@Transactional // 트랜잭션 처리
 	@Override
 	public void boardReWrite(BoardReVo boardReVo) throws Exception {
 		boardDao.boardReWrite(boardReVo);
+		boardDao.updateReplyCnt(boardReVo.getBrdNo(), 1); // 댓글 갯수 증가
 	}
 
 	@Override
@@ -70,9 +73,12 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.boardReUpdate(boardReVo);
 	}
 
+	@Transactional // 트랜잭션 처리
 	@Override
 	public void boardReDelete(Integer brdReNo) throws Exception {
-		boardDao.boardReDelete(brdReNo);
+		int brdNo = boardDao.getBoardNo(brdReNo); // 댓글의 게시물 번호 조회
+		boardDao.delete(brdReNo); // 댓글 삭제
+		boardDao.updateReplyCnt(brdNo, -1); // 댓글 갯수 감소
 	}
 
 	@Override

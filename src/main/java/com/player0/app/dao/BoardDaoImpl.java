@@ -24,13 +24,23 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public void write(BoardVo boardVo) throws Exception {
-		sqlSession.insert(NAMESPACE + ".write", boardVo);
+	public List<BoardVo> boardListPaging(Criteria criteria) throws Exception {
+		return sqlSession.selectList(NAMESPACE + ".boardListPaging", criteria);
+	}
+
+	@Override
+	public int getBoardNo(Integer brdNo) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + ".getBoardNo", brdNo);
 	}
 
 	@Override
 	public BoardVo read(Integer brdNo) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + ".select", brdNo);
+	}
+
+	@Override
+	public void write(BoardVo boardVo) throws Exception {
+		sqlSession.insert(NAMESPACE + ".write", boardVo);
 	}
 
 	@Override
@@ -40,12 +50,7 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public void delete(Integer brdNo) throws Exception {
-		sqlSession.delete(NAMESPACE + ".delete", brdNo);
-	}
-
-	@Override
-	public List<BoardVo> boardListPaging(Criteria criteria) throws Exception {
-		return sqlSession.selectList(NAMESPACE + ".boardListPaging", criteria);
+		sqlSession.update(NAMESPACE + ".delete", brdNo);
 	}
 
 	@Override
@@ -86,4 +91,16 @@ public class BoardDaoImpl implements BoardDao {
 		return sqlSession.selectOne(NAMESPACE + ".countReplies", brdNo);
 	}
 
+	@Override
+	public void updateReplyCnt(Integer brdNo, int replyCnt) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("brd_no", brdNo);
+		paramMap.put("reply_cnt", replyCnt);
+		sqlSession.update(NAMESPACE + ".updateReplyCnt", paramMap);
+	}
+
+	@Override
+	public void updateViewCnt(Integer brdNo) throws Exception {
+		sqlSession.update(NAMESPACE + ".updateViewCnt", brdNo);
+	}
 }

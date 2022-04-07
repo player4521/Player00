@@ -13,12 +13,13 @@
 		var formObj = $("form[role='form']");
 		console.log(formObj);
 		$(".modBtn").on("click", function() {
-			formObj.submit();
+// 			formObj.submit();
 		});
 		
 		// TODO 버튼 동작 안함
 		$(".cancelBtn").on("click", function() {
 			history.go(-1);
+// 			formObj.submit();
 		});
 		
 		// TODO 버튼 동작 안함. 버튼타입을 submit으로 할 경우 동작하지만 이동 후 수정완료메세지가 출력됨
@@ -27,6 +28,7 @@
 			+ "&perPageNum=${criteria.perPageNum}";
 			+ "&searchType=${criteria.searchType}";
 			+ "&keyword=${criteria.keyword}";
+			formObj.submit();
 		});
 	});
 </script>
@@ -97,11 +99,11 @@
 									</div>
 								</div>
 								<div class="card-footer">
-									<button type="button" class="btn btn-primary listBtn">
+									<button type="submit" class="btn btn-primary listBtn">
 										<i class="fa fa-list"></i> list
 									</button>
 									<div class="float-right">
-										<button type="button" class="btn btn-warning cancelBtn">
+										<button type="submit" class="btn btn-warning cancelBtn">
 											<i class="fa fa-trash"></i> cancle
 										</button>
 										<button type="submit" class="btn btn-success modBtn">

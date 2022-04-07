@@ -337,8 +337,7 @@ $(document).ready(function() {
 												type="text" placeholder="writer">
 										</div>
 										<div class="form-group col-sm-2">
-											<button type="button"
-												class="btn btn-primary btn-sm btn-block replyAddBtn">
+											<button type="button" class="btn btn-primary btn-sm btn-block replyAddBtn">
 												<i class="fa fa-save"></i> SAVE
 											</button>
 										</div>
@@ -362,8 +361,7 @@ $(document).ready(function() {
 									<i class="fas fa-comments margin-r-5 replyCount"></i>
 								</a>
 								<div class="card-tools">
-									<button type="button" class="btn primary"
-										data-widget="collapse">
+									<button type="submit" class="btn primary" data-widget="collapse">
 										<i class="fa fa-plus"></i>
 									</button>
 								</div>
@@ -373,9 +371,7 @@ $(document).ready(function() {
 							<%--댓글 페이징--%>
 							<div class="card-footer">
 								<nav aria-label="Contacts Page Navigation">
-									<ul
-										class="pagination pagination-sm no-margin justify-content-center m-0">
-									</ul>
+									<ul class="pagination pagination-sm no-margin justify-content-center m-0"></ul>
 								</nav>
 							</div>
 						</div>

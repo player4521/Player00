@@ -7,15 +7,17 @@ import com.player0.app.model.BoardReVo;
 import com.player0.app.model.BoardVo;
 
 public interface BoardDao {
-	void write(BoardVo boardVo) throws Exception;
+	List<BoardVo> boardListPaging(Criteria criteria) throws Exception;
+
+	int getBoardNo(Integer brdNo) throws Exception;
 
 	BoardVo read(Integer brdNo) throws Exception;
+
+	void write(BoardVo boardVo) throws Exception;
 
 	void update(BoardVo boardVo) throws Exception;
 
 	void delete(Integer brdNo) throws Exception;
-
-	List<BoardVo> boardListPaging(Criteria criteria) throws Exception;
 
 	int countArticles(Criteria criteria) throws Exception;
 
@@ -31,4 +33,7 @@ public interface BoardDao {
 
 	int countReplies(Integer brdNo) throws Exception;
 
+	void updateReplyCnt(Integer brdNo, int replyCnt) throws Exception;
+
+	void updateViewCnt(Integer brdNo) throws Exception;
 }

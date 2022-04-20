@@ -10,7 +10,7 @@ public class BoardVo {
 	private String tag;
 	private int view_cnt;
 	private int reply_cnt;
-	private String user_id;
+	private String player_id;
 	private Date reg_date;
 	private Date edit_date;
 
@@ -70,12 +70,12 @@ public class BoardVo {
 		this.reply_cnt = reply_cnt;
 	}
 
-	public String getUser_id() {
-		return user_id;
+	public String getPlayer_id() {
+		return player_id;
 	}
 
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setPlayer_id(String player_id) {
+		this.player_id = player_id;
 	}
 
 	public Date getReg_date() {
@@ -97,7 +97,7 @@ public class BoardVo {
 	@Override
 	public String toString() {
 		return "BoardVo [brd_no=" + brd_no + ", category_cd=" + category_cd + ", title=" + title + ", content="
-				+ content + ", tag=" + tag + ", view_cnt=" + view_cnt + ", reply_cnt=" + reply_cnt + ", user_id=" + user_id + ", reg_date=" + reg_date
+				+ content + ", tag=" + tag + ", view_cnt=" + view_cnt + ", reply_cnt=" + reply_cnt + ", player_id=" + player_id + ", reg_date=" + reg_date
 				+ ", edit_date=" + edit_date + "]";
 	}
 

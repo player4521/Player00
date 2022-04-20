@@ -118,7 +118,7 @@
 														<td><a href="${path}/board/read${pageMaker.makeSearch(pageMaker.criteria.page)}&brd_no=${list.brd_no}">${list.title}</a>
 														<span class="badge bg-teal"><i class="fas fa-comment"></i> + ${list.reply_cnt}</span>
 														</td>
-														<td>${list.user_id}</td>
+														<td>${list.player_id}</td>
 														<!-- yyyy-MM-dd a HH:mm 2022-03-16 오후 21:40 -->
 														<td><fmt:formatDate value="${list.reg_date}" pattern="yyyy-MM-dd HH:mm" /></td>
 														<td><span class="badge bg-red">${list.view_cnt}</span></td>

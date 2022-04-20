@@ -11,7 +11,7 @@
 		, content
 		, tag
 		, view_cnt
-		, user_id
+		, player_id
 		, reg_date
 		, edit_date
 		) VALUES (
@@ -21,8 +21,8 @@
 		, #{content}
 		, #{tag}
 		, #{view_cnt}
-		<!-- , #{userId} -->
-		, 'test'<!-- 임시 userId -->
+		<!-- , #{playerId} -->
+		, 'test'<!-- 임시 playerId -->
 		, SYSDATE
 		, SYSDATE
 		)
@@ -36,7 +36,7 @@
 		, content
 		, tag
 		, view_cnt
-		, user_id
+		, player_id
 		, reg_date
 		, edit_date
 		FROM
@@ -75,7 +75,7 @@
 		, tag
 		, view_cnt
 		, reply_cnt
-		, user_id
+		, player_id
 		, reg_date
 		FROM
 		general_board
@@ -114,13 +114,13 @@
 		<if test="searchType != null">
 			<if test="searchType == 't'.toString()"> AND title LIKE '%' || #{keyword} || '%' </if>
 			<if test="searchType == 'c'.toString()"> AND content LIKE '%' || #{keyword} || '%' </if>
-			<if test="searchType == 'w'.toString()"> AND user_id LIKE '%' || #{keyword} || '%' </if>
+			<if test="searchType == 'w'.toString()"> AND player_id LIKE '%' || #{keyword} || '%' </if>
 			<if test="searchType == 'tc'.toString()"> AND ( title LIKE '%' || #{keyword} || '%' OR content
 				LIKE '%' || #{keyword} || '%' ) </if>
 			<if test="searchType == 'cw'.toString()"> AND ( content LIKE '%' || #{keyword} || '%' OR
- 				user_id LIKE '%' || #{keyword} || '%' ) </if>
+ 				player_id LIKE '%' || #{keyword} || '%' ) </if>
 			<if test="searchType == 'tcw'.toString()"> AND ( title LIKE '%' || #{keyword} || '%' OR content
-				LIKE '%' || #{keyword} || '%' OR user_id LIKE '%' ||
+				LIKE '%' || #{keyword} || '%' OR player_id LIKE '%' ||
 				#{keyword} || '%' ) </if>
 		</if>
 	</sql>
@@ -146,9 +146,10 @@
 		<result property="tag" column="tag" />
 		<result property="view_cnt" column="view_cnt" />
 		<result property="reply_cnt" column="reply_cnt" />
-		<result property="user_id" column="user_id" />
+		<result property="player_id" column="player_id" />
 		<result property="reg_date" column="reg_date" />
 		<result property="edit_date" column="edit_date" />
+		<result property="delete_flg" column="delete_flg" />
 	</resultMap>
 
 	<select id="boardReList" resultMap="BoardReResultMap">
@@ -156,7 +157,7 @@
 		brd_re_no
 		, brd_no
 		, re_content
-		, user_id
+		, player_id
 		, reg_date
 		, edit_date
 		FROM general_board_reply
@@ -169,13 +170,13 @@
 		general_board_reply (
 		brd_no
 		, re_content
-		, user_id
+		, player_id
 		, reg_date
 		, edit_date
 		) VALUES (
 		#{brdNo}
 		, #{reContent}
-		, #{userId}
+		, #{playerId}
 		, SYSDATE
 		, SYSDATE
 		)
@@ -199,7 +200,7 @@
 		brd_re_no
 		, brd_no
 		, re_content
-		, user_id
+		, player_id
 		, reg_date
 		, edit_date
 		FROM
@@ -222,7 +223,7 @@
 		<id property="brdReNo" column="brd_re_no" />
 		<result property="brdNo" column="brd_no" />
 		<result property="reContent" column="re_content" />
-		<result property="userId" column="user_id" />
+		<result property="playerId" column="player_id" />
 		<result property="regDate" column="reg_date" />
 		<result property="editDate" column="edit_date" />
 	</resultMap>

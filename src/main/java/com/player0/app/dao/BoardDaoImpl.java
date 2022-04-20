@@ -64,6 +64,14 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
+	public List<BoardReVo> replyList(Integer brdNo, Criteria criteria) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("brdNo", brdNo);
+		paramMap.put("criteria", criteria);
+		return sqlSession.selectList(NAMESPACE + ".replyList", paramMap);
+	}
+
+	@Override
 	public void boardReWrite(BoardReVo boardReVo) throws Exception {
 		sqlSession.insert(NAMESPACE + ".boardReWrite", boardReVo);
 	}
@@ -76,14 +84,6 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public void boardReDelete(Integer brdNo) throws Exception {
 		sqlSession.delete(NAMESPACE + ".boardReDelete", brdNo);
-	}
-
-	@Override
-	public List<BoardReVo> replyList(Integer brdNo, Criteria criteria) throws Exception {
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("brdNo", brdNo);
-		paramMap.put("criteria", criteria);
-		return sqlSession.selectList(NAMESPACE + ".replyList", paramMap);
 	}
 
 	@Override

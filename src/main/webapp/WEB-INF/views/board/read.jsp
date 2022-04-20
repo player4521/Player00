@@ -136,9 +136,9 @@ $(document).ready(function() {
     $(".replyAddBtn").on("click", function() {
 
     	// 입력 form 선택자 
-        var userIdObj = $("#newReplyWriter");
+        var playerIdObj = $("#newReplyWriter");
         var reContentObj = $("#newReplyText");
-        var userId = userIdObj.val();
+        var playerId = playerIdObj.val();
         var reContent = reContentObj.val();
 
         // 댓글 입력처리 수행
@@ -152,7 +152,7 @@ $(document).ready(function() {
             dataType: "text",
             data: JSON.stringify({
             	brdNo: brdNo,
-                userId: userId,
+                playerId: playerId,
                 reContent: reContent
             }),
             success: function(result) {
@@ -162,7 +162,7 @@ $(document).ready(function() {
                     replyPageNum = 1; // 페이지 1로 초기화
                     getReplies("${path}/reply/" + brdNo + "/" + replyPageNum); // 댓글 목록 호출 
                     reContentObj.val(""); // 댓글 입력창 공백처리
-                    userIdObj.val(""); // 댓글 입력창 공백처리 
+                    playerIdObj.val(""); // 댓글 입력창 공백처리 
                 }
             }
         });
@@ -225,7 +225,7 @@ $(document).ready(function() {
 		<div class="user-block">
  			<img class="img-circle img-bordered-sm" src="${path}/dist/img/user1-128x128.jpg" alt="user image">
  			<span class="username">
- 				<a href="#">{{userId}}</a>
+ 				<a href="#">{{playerId}}</a>
  				<a href="#" class="float-right btn-box-tool replyDelBtn" data-toggle="modal" data-target="#delModal">
  					<i class="fa fa-times"> 삭제</i>
 				</a>
@@ -289,7 +289,7 @@ $(document).ready(function() {
 								<div class="user-block">
 									<img class="img-circle img-bordered-sm"
 										src="${path}/dist/img/user1-128x128.jpg" alt="user image"> <span
-										class="username"> <a href="#">${board.user_id} Chef</a>
+										class="username"> <a href="#">${board.player_id} Chef</a>
 									</span> <span class="description"><fmt:formatDate
 											pattern="yyyy-MM-dd" value="${board.reg_date}" /></span>
 								</div>

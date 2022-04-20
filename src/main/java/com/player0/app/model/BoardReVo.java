@@ -6,7 +6,7 @@ public class BoardReVo {
 	private Integer brdReNo;
 	private Integer brdNo;
 	private String reContent;
-	private String userId;
+	private String playerId;
 	private Date regDate;
 	private Date editDate;
 
@@ -34,12 +34,12 @@ public class BoardReVo {
 		this.reContent = reContent;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getPlayerId() {
+		return playerId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setPlayerId(String playerId) {
+		this.playerId = playerId;
 	}
 
 	public Date getRegDate() {
@@ -60,7 +60,7 @@ public class BoardReVo {
 
 	@Override
 	public String toString() {
-		return "BoardReVo [brdReNo=" + brdReNo + ", brdNo=" + brdNo + ", reContent=" + reContent + ", userId=" + userId
+		return "BoardReVo [brdReNo=" + brdReNo + ", brdNo=" + brdNo + ", reContent=" + reContent + ", playerId=" + playerId
 				+ ", regDate=" + regDate + ", editDate=" + editDate + "]";
 	}
 

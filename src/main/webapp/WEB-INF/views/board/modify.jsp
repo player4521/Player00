@@ -95,7 +95,7 @@
 									</div>
 									<div class="form-group">
 										<label for="writer">name</label> <input class="form-control"
-											id="user_id" name="user_id" value="${board.user_id}" readonly>
+											id="player_id" name="player_id" value="${board.player_id}" readonly>
 									</div>
 								</div>
 								<div class="card-footer">

@@ -7,6 +7,8 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="../include/head.jsp"%>
+<!-- jquery cdn -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 	var msg = "${msg}";
 	if (msg === "REGISTERED") {
@@ -15,13 +17,13 @@
 	    alert("아이디와 비밀번호를 확인해주세요.");
 	}
 
-	$(function() {
-	    $('input').iCheck({
-	        checkboxClass: 'icheckbox_square-blue',
-	        radioClass: 'iradio_square-blue',
-	        increaseArea: '20%' // optional
-	    });
-	});
+// 	$(function() {
+// 	    $('input').iCheck({
+// 	        checkboxClass: 'icheckbox_square-blue',
+// 	        radioClass: 'iradio_square-blue',
+// 	        increaseArea: '20%' // optional
+// 	    });
+// 	});
 </script>
 <body class="hold-transition login-page">
 	<div class="login-box">
